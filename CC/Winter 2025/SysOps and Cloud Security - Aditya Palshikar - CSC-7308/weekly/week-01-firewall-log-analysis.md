@@ -52,7 +52,15 @@ Every traffic log entry has a source zone and destination zone. Understanding yo
 - Report submitted as DOCX — includes screenshots of filtered log queries, observations about detected traffic patterns, and analysis of identified threats.
 - Sanitized PDF version to be added to [`../assignments/`](../assignments/).
 
+### Methodology
+1. Connected to the Palo Alto NGFW cloud lab instance and navigated to Monitor → Logs → Traffic
+2. Applied progressive filters to isolate specific traffic patterns (e.g., blocked sessions, high-severity threats)
+3. Analyzed source/destination zone context to identify suspicious untrust→trust traversals
+4. Documented filter expressions and correlated findings across traffic and threat log types
+
 ## Reflection
+
+> **💡 Key Takeaway:** Effective log analysis is question-driven, not log-driven — disciplined filter-writing is the entire job of a firewall analyst.
 
 The first week set the rhythm: **every** subsequent discussion would trace back to what the firewall saw and said. If you cannot read a firewall log, you cannot operate any of the later tools in this course — SIEM, threat intelligence, endpoint protection all depend on telemetry that begins here.
 

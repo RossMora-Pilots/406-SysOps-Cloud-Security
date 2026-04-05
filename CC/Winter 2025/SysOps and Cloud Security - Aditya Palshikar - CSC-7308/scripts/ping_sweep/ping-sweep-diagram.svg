@@ -1,64 +1,142 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
-    <!-- Styles -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1150">
     <defs>
         <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-            <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+            <polygon points="0 0, 10 3.5, 0 7" fill="#334155"/>
         </marker>
+        <linearGradient id="startGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="asyncGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="blockingGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="decisionGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="successGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="failGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="endGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#64748b;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#475569;stop-opacity:1" />
+        </linearGradient>
+        <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+            <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000030"/>
+        </filter>
     </defs>
-    
-    <!-- Shapes and Connections -->
-    <!-- Start -->
-    <rect x="350" y="50" width="100" height="50" rx="25" fill="#4CAF50" stroke="#333" stroke-width="2"/>
-    <text x="400" y="80" text-anchor="middle" fill="white" font-family="Arial">Start</text>
-    
-    <!-- Get User Input: Base IP -->
-    <rect x="300" y="150" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
-    <text x="400" y="180" text-anchor="middle" fill="white" font-family="Arial">Get User Input: Base IP</text>
-    
-    <!-- Get User Input: Subnet -->
-    <rect x="300" y="250" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
-    <text x="400" y="280" text-anchor="middle" fill="white" font-family="Arial">Get User Input: Subnet</text>
-    
-    <!-- Calculate IP Range -->
-    <rect x="300" y="350" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
-    <text x="400" y="380" text-anchor="middle" fill="white" font-family="Arial">Calculate IP Range</text>
-    
-    <!-- Loop through IP Range -->
-    <rect x="300" y="450" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
-    <text x="400" y="480" text-anchor="middle" fill="white" font-family="Arial">Loop through IP Range</text>
-    
-    <!-- Execute Ping -->
-    <rect x="300" y="550" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
-    <text x="400" y="580" text-anchor="middle" fill="white" font-family="Arial">Execute Ping</text>
-    
-    <!-- Check Result -->
-    <polygon points="400,650 450,700 400,750 350,700" fill="#FFA726" stroke="#333" stroke-width="2"/>
-    <text x="400" y="705" text-anchor="middle" fill="white" font-family="Arial">Check Result</text>
-    
-    <!-- Success/Failure Boxes -->
-    <rect x="200" y="800" width="150" height="50" rx="5" fill="#81C784" stroke="#333" stroke-width="2"/>
-    <text x="275" y="830" text-anchor="middle" fill="white" font-family="Arial">Host is Up</text>
-    
-    <rect x="450" y="800" width="150" height="50" rx="5" fill="#E57373" stroke="#333" stroke-width="2"/>
-    <text x="525" y="830" text-anchor="middle" fill="white" font-family="Arial">Host Unreachable</text>
-    
+
+    <!-- Title -->
+    <text x="450" y="30" text-anchor="middle" fill="#1e293b" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Async Rust Ping-Sweep — Control Flow</text>
+
+    <!-- Legend -->
+    <rect x="30" y="15" width="14" height="14" rx="3" fill="url(#asyncGrad)"/>
+    <text x="50" y="27" fill="#334155" font-family="Arial, sans-serif" font-size="11">Tokio Async Layer</text>
+    <rect x="170" y="15" width="14" height="14" rx="3" fill="url(#blockingGrad)"/>
+    <text x="190" y="27" fill="#334155" font-family="Arial, sans-serif" font-size="11">Blocking Thread Pool</text>
+
+    <!-- Background zones -->
+    <rect x="50" y="45" width="800" height="340" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5" stroke-dasharray="6,3"/>
+    <text x="70" y="65" fill="#3b82f6" font-family="Arial, sans-serif" font-size="11" font-weight="bold">TOKIO ASYNC RUNTIME</text>
+
+    <rect x="50" y="410" width="800" height="420" rx="12" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5" stroke-dasharray="6,3"/>
+    <text x="70" y="430" fill="#d97706" font-family="Arial, sans-serif" font-size="11" font-weight="bold">BLOCKING THREAD POOL (spawn_blocking + std::thread)</text>
+
+    <!-- Start node -->
+    <rect x="375" y="80" width="150" height="44" rx="22" fill="url(#startGrad)" filter="url(#shadow)"/>
+    <text x="450" y="107" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Start</text>
+
+    <!-- User Input: Base IP -->
+    <rect x="325" y="155" width="250" height="44" rx="8" fill="url(#asyncGrad)" filter="url(#shadow)"/>
+    <text x="450" y="175" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13">📋 Get User Input</text>
+    <text x="450" y="191" text-anchor="middle" fill="#dbeafe" font-family="Arial, sans-serif" font-size="10">base_ip: String + subnet_mask: u8</text>
+
+    <!-- Parse + Calculate -->
+    <rect x="325" y="230" width="250" height="44" rx="8" fill="url(#asyncGrad)" filter="url(#shadow)"/>
+    <text x="450" y="250" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13">🔢 Parse IP &amp; Calculate Range</text>
+    <text x="450" y="266" text-anchor="middle" fill="#dbeafe" font-family="Arial, sans-serif" font-size="10">num_hosts = 2^(32−mask) − 1</text>
+
+    <!-- Loop -->
+    <rect x="325" y="305" width="250" height="44" rx="8" fill="url(#asyncGrad)" filter="url(#shadow)"/>
+    <text x="450" y="325" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13">🔄 for i in 1..=num_hosts</text>
+    <text x="450" y="341" text-anchor="middle" fill="#dbeafe" font-family="Arial, sans-serif" font-size="10">Construct Ipv4Addr → call ping_host()</text>
+
+    <!-- spawn_blocking -->
+    <rect x="325" y="450" width="250" height="44" rx="8" fill="url(#blockingGrad)" filter="url(#shadow)"/>
+    <text x="450" y="470" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13">⚡ task::spawn_blocking</text>
+    <text x="450" y="486" text-anchor="middle" fill="#fef3c7" font-family="Arial, sans-serif" font-size="10">Moves work off Tokio executor</text>
+
+    <!-- Create channel -->
+    <rect x="325" y="525" width="250" height="44" rx="8" fill="url(#blockingGrad)" filter="url(#shadow)"/>
+    <text x="450" y="545" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13">📨 mpsc::channel()</text>
+    <text x="450" y="561" text-anchor="middle" fill="#fef3c7" font-family="Arial, sans-serif" font-size="10">tx → ping thread, rx → result collector</text>
+
+    <!-- std::thread::spawn + ping -->
+    <rect x="325" y="600" width="250" height="44" rx="8" fill="url(#blockingGrad)" filter="url(#shadow)"/>
+    <text x="450" y="620" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13">🏓 std::thread → pinger::ping()</text>
+    <text x="450" y="636" text-anchor="middle" fill="#fef3c7" font-family="Arial, sans-serif" font-size="10">ICMP echo request via raw socket</text>
+
+    <!-- Decision diamond -->
+    <polygon points="450,700 530,760 450,820 370,760" fill="url(#decisionGrad)" filter="url(#shadow)"/>
+    <text x="450" y="755" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">PingResult</text>
+    <text x="450" y="770" text-anchor="middle" fill="#ddd6fe" font-family="Arial, sans-serif" font-size="10">Pong?</text>
+
+    <!-- Success -->
+    <rect x="175" y="850" width="180" height="44" rx="8" fill="url(#successGrad)" filter="url(#shadow)"/>
+    <text x="265" y="877" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13">✅ Host is UP</text>
+
+    <!-- Failure -->
+    <rect x="545" y="850" width="180" height="44" rx="8" fill="url(#failGrad)" filter="url(#shadow)"/>
+    <text x="635" y="877" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="13">❌ Unreachable</text>
+
+    <!-- More IPs? decision -->
+    <polygon points="450,940 510,980 450,1020 390,980" fill="url(#decisionGrad)" filter="url(#shadow)"/>
+    <text x="450" y="978" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="11" font-weight="bold">More</text>
+    <text x="450" y="992" text-anchor="middle" fill="#ddd6fe" font-family="Arial, sans-serif" font-size="10">IPs?</text>
+
     <!-- End -->
-    <rect x="350" y="900" width="100" height="50" rx="25" fill="#f44336" stroke="#333" stroke-width="2"/>
-    <text x="400" y="930" text-anchor="middle" fill="white" font-family="Arial">End</text>
-    
+    <rect x="375" y="1060" width="150" height="44" rx="22" fill="url(#endGrad)" filter="url(#shadow)"/>
+    <text x="450" y="1087" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">End</text>
+
     <!-- Connections -->
-    <line x1="400" y1="100" x2="400" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <line x1="400" y1="200" x2="400" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <line x1="400" y1="300" x2="400" y2="350" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <line x1="400" y1="400" x2="400" y2="450" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <line x1="400" y1="500" x2="400" y2="550" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <line x1="400" y1="600" x2="400" y2="650" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    
-    <!-- Success/Failure paths -->
-    <line x1="350" y1="700" x2="275" y2="800" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <line x1="450" y1="700" x2="525" y2="800" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    
-    <!-- Converging paths -->
-    <line x1="275" y1="850" x2="400" y2="900" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-    <line x1="525" y1="850" x2="400" y2="900" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="450" y1="124" x2="450" y2="155" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="450" y1="199" x2="450" y2="230" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="450" y1="274" x2="450" y2="305" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Async-to-blocking boundary -->
+    <line x1="450" y1="349" x2="450" y2="450" stroke="#334155" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowhead)"/>
+    <text x="460" y="400" fill="#64748b" font-family="Arial, sans-serif" font-size="10" font-style="italic">crosses runtime boundary</text>
+
+    <line x1="450" y1="494" x2="450" y2="525" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="450" y1="569" x2="450" y2="600" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="450" y1="644" x2="450" y2="700" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Decision paths with labels -->
+    <line x1="370" y1="760" x2="265" y2="850" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="290" y="810" fill="#16a34a" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Pong</text>
+
+    <line x1="530" y1="760" x2="635" y2="850" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="590" y="810" fill="#dc2626" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Timeout/Error</text>
+
+    <!-- Converge to More IPs -->
+    <line x1="265" y1="894" x2="390" y2="970" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="635" y1="894" x2="510" y2="970" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Loop back -->
+    <path d="M 390 980 C 200 980, 200 330, 325 330" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowhead)"/>
+    <text x="210" y="660" fill="#3b82f6" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Yes</text>
+
+    <!-- End path -->
+    <line x1="450" y1="1020" x2="450" y2="1060" stroke="#334155" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="480" y="1045" fill="#64748b" font-family="Arial, sans-serif" font-size="11" font-weight="bold">No</text>
 </svg>

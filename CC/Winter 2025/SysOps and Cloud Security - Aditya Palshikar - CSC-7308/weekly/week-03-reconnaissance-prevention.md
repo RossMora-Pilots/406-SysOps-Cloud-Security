@@ -48,6 +48,25 @@ Two thresholds matter per scan type:
 
 Setting blocks too low = false positives (legitimate tools blocked). Setting too high = real attackers slip through. The tuning ritual: start permissive, observe baseline, tighten.
 
+### Zone Protection Profile Configuration (Sanitized)
+
+A representative Zone Protection Profile configuration for reconnaissance prevention:
+
+```xml
+<!-- Palo Alto NGFW Zone Protection Profile — generalized example -->
+<entry name="Recon-Prevention-Profile">
+  <flood-protection>
+    <syn><enable>yes</enable><alert-rate>100</alert-rate><activate-rate>500</activate-rate></syn>
+    <icmp><enable>yes</enable><alert-rate>200</alert-rate><activate-rate>1000</activate-rate></icmp>
+    <udp><enable>yes</enable><alert-rate>200</alert-rate><activate-rate>1000</activate-rate></udp>
+  </flood-protection>
+  <scan>
+    <entry name="tcp-port-scan"><action><block-ip><track-by>source</track-by><duration>300</duration></block-ip></action><interval>2</interval><threshold>100</threshold></entry>
+    <entry name="host-sweep"><action><block-ip><track-by>source</track-by><duration>300</duration></block-ip></action><interval>10</interval><threshold>100</threshold></entry>
+  </scan>
+</entry>
+```
+
 ### Connection to Week 2's Ping Sweep
 
 My own Rust ping-sweep tool is exactly the kind of traffic Zone Protection is tuned to detect. If I ran the tool inside a zone with protection enabled and sensible thresholds, I would:
@@ -61,7 +80,16 @@ My own Rust ping-sweep tool is exactly the kind of traffic Zone Protection is tu
 - Report submitted as DOCX — includes screenshots of Zone Protection profile configuration, DoS policy, and threat log entries showing detected reconnaissance activity.
 - Sanitized PDF to be added to [`../assignments/`](../assignments/).
 
+### Methodology
+1. Configured a Zone Protection Profile with flood protection thresholds (SYN, UDP, ICMP)
+2. Enabled reconnaissance protection to detect TCP/UDP port scans and host sweeps
+3. Set alert and block-IP thresholds, tested with simulated scan traffic
+4. Created a DoS Protection Policy and attached it to the appropriate zone
+5. Verified detection in threat logs — observed recon signature triggers and block entries
+
 ## Reflection
+
+> **💡 Key Takeaway:** Defensive controls pattern-match on behavior, not tools — Zone Protection blocks reconnaissance regardless of whether the scanner is Rust, Python, or nmap.
 
 This week delivered the **attacker-defender** contrast the course is built on. Building a ping-sweep tool in Week 2 and immediately seeing it blocked by Week 3's Zone Protection Profile in lab context made the defensive value concrete.
 

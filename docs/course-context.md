@@ -40,28 +40,51 @@ Also: Spectrum Telecom Capstone stream (Anas Javaid).
 
 CSC-7308 is the **operational defense** course in the Winter 2025 term. It answers: *"given the infrastructure we built in Fall 2024, how do we operate it securely in production?"*
 
-```text
-                 Fall 2024 (Foundations)
-                       │
-             ┌─────────┼─────────┐
-             │         │         │
-        CSC-7300    CSC-7302   CSC-7303
-          (IT)    (CSEC Infra) (Net Def)
-             │         │         │
-             └─────────┼─────────┘
-                       │
-                 Winter 2025 (Applied)
-                       │
-       ┌───────────────┼───────────────┐
-       │               │               │
-   CSC-7306      **CSC-7308**      CSC-7309
-  (Mobile/Wi-Fi) (SysOps/Cloud)     (Tools)
-       │               │               │
-       └───────────────┼───────────────┘
-                       │
-           CSC-7311, 7310, 7312 (Offense, Forensics, Malware)
-                       │
-                 CSC-7307 (Capstone)
+```mermaid
+graph TD
+    subgraph fall["Fall 2024 — Foundations"]
+        csc7300["CSC-7300<br/>Fundamentals of IT"]
+        csc7302["CSC-7302<br/>CSEC Infrastructure"]
+        csc7303["CSC-7303<br/>Network Defense"]
+    end
+
+    subgraph winter["Winter 2025 — Applied"]
+        csc7306["CSC-7306<br/>Mobile Wireless Security"]
+        csc7308["CSC-7308<br/>SysOps and Cloud Security"]
+        csc7309["CSC-7309<br/>CSEC Tool Development"]
+    end
+
+    subgraph offense["Offense / Forensics / Malware"]
+        csc7311["CSC-7311<br/>Ethical Hacking"]
+        csc7310["CSC-7310<br/>IT Security Forensics"]
+        csc7312["CSC-7312<br/>Malware Analysis"]
+    end
+
+    capstone["CSC-7307<br/>Cybersecurity Capstone"]
+
+    csc7300 --> csc7306
+    csc7302 --> csc7308
+    csc7303 --> csc7308
+    csc7303 --> csc7309
+    csc7306 --> csc7311
+    csc7308 --> csc7311
+    csc7308 --> csc7310
+    csc7309 --> csc7312
+    csc7311 --> capstone
+    csc7310 --> capstone
+    csc7312 --> capstone
+
+    classDef fallStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef winterStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef offenseStyle fill:#ed8936,stroke:#c05621,color:#fff
+    classDef capstoneStyle fill:#9f7aea,stroke:#6b46c1,color:#fff
+    classDef highlightStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff,stroke-width:3px
+
+    class csc7300,csc7302,csc7303 fallStyle
+    class csc7306,csc7309 winterStyle
+    class csc7308 highlightStyle
+    class csc7311,csc7310,csc7312 offenseStyle
+    class capstone capstoneStyle
 ```
 
 ## Adjacent Courses — Direct Connections

@@ -58,7 +58,16 @@ Two deliverables this week:
 
 This second deliverable was self-initiated — a way to deepen understanding of the traffic that ACC would observe. By building a scanner, I saw exactly what traffic the ACC was classifying.
 
+### Methodology
+1. Accessed the Application Command Center (ACC) and configured global time-range filters
+2. Analyzed top-application, top-source, and top-destination widgets to identify traffic patterns
+3. Applied global zone filter (untrust) to reshape all widgets simultaneously
+4. Drilled down from widget aggregates to raw log entries for specific application sessions
+5. *Independent work:* Built the Rust async ping-sweep tool and correlated its ICMP traffic with ACC observations
+
 ## Reflection
+
+> **💡 Key Takeaway:** The best way to understand a defender's view is to generate the attack traffic yourself — building a scanner reveals exactly what the firewall sees.
 
 This week bridged **observing** (ACC) and **generating** (the ping sweep). Writing the scanner forced me to think about what the firewall sees: every IP I pinged would surface as an ICMP session in the traffic log and likely aggregate in an ACC "network activity" widget.
 

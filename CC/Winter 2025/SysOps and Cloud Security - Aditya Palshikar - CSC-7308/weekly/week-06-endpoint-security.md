@@ -31,6 +31,34 @@
 
 A **rule** decides allow/deny. A **profile** decides *how much inspection* to do on allowed traffic. Every allow rule should carry a **profile group** (vulnerability + antivirus + anti-spyware + URL filtering + file blocking + WildFire analysis).
 
+```mermaid
+graph TD
+    rule["Security Policy Rule<br/>(Allow with Inspection)"]
+    profileGroup["Security Profile Group"]
+    vuln["Vulnerability<br/>Protection"]
+    av["Antivirus"]
+    antispy["Anti-Spyware"]
+    url["URL Filtering"]
+    fb["File Blocking"]
+    wf["WildFire<br/>Analysis"]
+
+    rule --> profileGroup
+    profileGroup --> vuln
+    profileGroup --> av
+    profileGroup --> antispy
+    profileGroup --> url
+    profileGroup --> fb
+    profileGroup --> wf
+
+    classDef ruleStyle fill:#2c5282,stroke:#1a365d,color:#fff
+    classDef groupStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef profileStyle fill:#48bb78,stroke:#276749,color:#fff
+
+    class rule ruleStyle
+    class profileGroup groupStyle
+    class vuln,av,antispy,url,fb,wf profileStyle
+```
+
 ### Vulnerability Protection Profile
 
 Signature-based detection of exploit attempts:
@@ -55,6 +83,24 @@ The firewall sees ingress/egress traffic; it cannot see:
 
 That is why endpoint security (Cortex XDR, Defender, CrowdStrike) exists **as a complement** to NGFW, not a replacement. A complete posture needs both.
 
+### Security Profile Group Configuration (Sanitized)
+
+A representative profile group combining multiple protection layers on a single allow-rule:
+
+```xml
+<!-- Palo Alto NGFW Security Profile Group — generalized example -->
+<entry name="Standard-Protection">
+  <virus><member>Antivirus-Default</member></virus>
+  <spyware><member>Anti-Spyware-Strict</member></spyware>
+  <vulnerability><member>Vuln-Protection-Strict</member></vulnerability>
+  <url-filtering><member>URL-Filter-Corporate</member></url-filtering>
+  <file-blocking><member>Block-Executables</member></file-blocking>
+  <wildfire-analysis><member>WildFire-Default</member></wildfire-analysis>
+</entry>
+```
+
+> Every security policy allow-rule should reference a profile group. Rules without profiles pass traffic uninspected — they are trust-only controls.
+
 ### Process Hierarchy in Endpoint Investigation
 
 Modern endpoint tools surface **process trees** (parent → child → grandchild). This is essential because:
@@ -68,7 +114,16 @@ Modern endpoint tools surface **process trees** (parent → child → grandchild
 - Report submitted as DOCX — includes screenshots of vulnerability profile configuration, anti-spyware profile setup, and how profiles are attached to security policy rules.
 - Sanitized PDF to be added to [`../assignments/`](../assignments/).
 
+### Methodology
+1. Created a Vulnerability Protection profile with severity-based actions (block critical/high, alert medium)
+2. Configured Antivirus and Anti-Spyware profiles for gateway-level malware detection
+3. Set up a WildFire Analysis profile for cloud sandbox submission of unknown files
+4. Assembled a Security Profile Group combining all four profile types
+5. Attached the profile group to an existing allow-rule in the security policy and committed the configuration
+
 ## Reflection
+
+> **💡 Key Takeaway:** Every firewall allow-rule without a security profile group attached is a trust-only control — the weakest link in an NGFW configuration.
 
 This week crystallized the **layered defense** model. Vulnerability profiles close the gap between "I have a firewall rule that allows web traffic" and "I want to block exploits hidden inside that allowed web traffic."
 

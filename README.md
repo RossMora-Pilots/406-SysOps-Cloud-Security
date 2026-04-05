@@ -1,11 +1,27 @@
 # SysOps and Cloud Security — CSC-7308 — Winter 2025
 
-![Portfolio CI](https://github.com/<owner>/<repo>/actions/workflows/portfolio-ci.yml/badge.svg)
-![Markdown Lint](https://github.com/<owner>/<repo>/actions/workflows/markdownlint.yml/badge.svg)
-![PM Evidence](https://github.com/<owner>/<repo>/actions/workflows/pm-evidence.yml/badge.svg)
-![Gitleaks](https://github.com/<owner>/<repo>/actions/workflows/gitleaks.yml/badge.svg)
+<!-- CI badges — will activate once published to GitHub -->
+<!-- ![Portfolio CI](https://github.com/OWNER/REPO/actions/workflows/portfolio-ci.yml/badge.svg) -->
+<!-- ![Markdown Lint](https://github.com/OWNER/REPO/actions/workflows/markdownlint.yml/badge.svg) -->
+<!-- ![PM Evidence](https://github.com/OWNER/REPO/actions/workflows/pm-evidence.yml/badge.svg) -->
+<!-- ![Gitleaks](https://github.com/OWNER/REPO/actions/workflows/gitleaks.yml/badge.svg) -->
+
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Weeks](https://img.shields.io/badge/weeks_delivered-9_of_12-blue)
+![Labs](https://img.shields.io/badge/labs_completed-8-blue)
+![Evidence](https://img.shields.io/badge/screenshots-44-orange)
 
 > Public, employer-facing course portfolio for **SysOps and Cloud Security (CSC-7308)**, a Winter 2025 course in the Cambrian College Postgraduate Cybersecurity Certificate program (Sudbury, Ontario). Instructor: **Aditya Palshikar**.
+
+---
+
+## About the Author
+
+**Ross Moravec** — Postgraduate Cybersecurity student at Cambrian College (Sudbury, Ontario), with a focus on operational defense, SIEM/SOC operations, and cloud security. This portfolio documents hands-on work with Palo Alto Networks NGFW, Wazuh SIEM, and cloud-native security tools completed during the Winter 2025 term.
+
+- 📂 Program: Postgraduate Cybersecurity Certificate (Fall 2024 – Winter 2025)
+- 🛡️ Focus: SysOps, cloud security, detection engineering, threat intelligence
+- 💻 Independent work: Rust async network tooling, CI/CD automation, documentation-as-code
 
 ---
 
@@ -118,6 +134,30 @@
 | 7 | 2025-02-18 | Cloud Computing & Container Fundamentals | Microsoft Defender, multi-cloud |
 | 8 | 2025-03-03 | Internet Threat Prevention | Palo Alto NGFW (CSFv2 Lab 02) |
 | 9 | 2025-03-10 | Container Networking & Security | Palo Alto NGFW (CSFv2 Lab 03) |
+
+```mermaid
+gantt
+    title CSC-7308 Course Progression — Winter 2025
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+
+    section Perimeter Defense
+    Wk 1 - Firewall Log Analysis           :w1, 2025-01-07, 7d
+    Wk 2 - App Command Center              :w2, 2025-01-14, 7d
+    Wk 3 - Stopping Recon Attacks           :w3, 2025-01-21, 7d
+
+    section SOC and Intelligence
+    Wk 4 - Build a SOC (Capstone)           :crit, w4, 2025-01-28, 7d
+    Wk 5 - Threat Intelligence              :w5, 2025-02-04, 7d
+
+    section Endpoint and Cloud
+    Wk 6 - Endpoint Security                :w6, 2025-02-11, 7d
+    Wk 7 - Cloud Computing Fundamentals     :w7, 2025-02-18, 7d
+
+    section Advanced Threats
+    Wk 8 - Internet Threat Prevention       :w8, 2025-03-03, 7d
+    Wk 9 - Container Networking             :w9, 2025-03-10, 7d
+```
 
 Full weekly detail: [`CC/.../weekly/`](CC/Winter%202025/SysOps%20and%20Cloud%20Security%20-%20Aditya%20Palshikar%20-%20CSC-7308/weekly/)
 

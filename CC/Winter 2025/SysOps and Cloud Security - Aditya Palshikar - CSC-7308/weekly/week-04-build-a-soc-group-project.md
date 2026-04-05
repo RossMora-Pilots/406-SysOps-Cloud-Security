@@ -41,25 +41,30 @@
 
 ### Wazuh Architecture
 
-```text
-        ┌──────────────────────┐
-        │   Wazuh Dashboard    │  (analyst UI)
-        └──────────┬───────────┘
-                   │
-        ┌──────────┴───────────┐
-        │   Wazuh Indexer      │  (OpenSearch)
-        │   (event storage)    │
-        └──────────┬───────────┘
-                   │
-        ┌──────────┴───────────┐
-        │   Wazuh Manager      │  (rules, alerts, active response)
-        └──────────┬───────────┘
-                   │
-      ┌────────────┼────────────┐
-      │            │            │
- ┌────┴───┐   ┌────┴───┐   ┌───┴────┐
- │ Agent  │   │ Agent  │   │ Agent  │  (Linux / Windows hosts)
- └────────┘   └────────┘   └────────┘
+```mermaid
+graph TD
+    dashboard["Wazuh Dashboard<br/>(Analyst UI)"]
+    indexer["Wazuh Indexer<br/>(OpenSearch · Event Storage)"]
+    manager["Wazuh Manager<br/>(Rules · Alerts · Active Response)"]
+    agent1["Agent 1<br/>Linux"]
+    agent2["Agent 2<br/>Windows"]
+    agent3["Agent 3<br/>Linux"]
+
+    dashboard --- indexer
+    indexer --- manager
+    manager --- agent1
+    manager --- agent2
+    manager --- agent3
+
+    classDef dashStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef indexStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef mgrStyle fill:#ed8936,stroke:#c05621,color:#fff
+    classDef agentStyle fill:#9f7aea,stroke:#6b46c1,color:#fff
+
+    class dashboard dashStyle
+    class indexer indexStyle
+    class manager mgrStyle
+    class agent1,agent2,agent3 agentStyle
 ```
 
 ### Why Open-Source SIEM?
@@ -68,6 +73,36 @@
 - **Customization** — full rule-language access, custom decoders
 - **Educational value** — complete visibility into every layer
 - **Integration** — Filebeat, Syslog, Elastic stack compatibility
+
+### Sample Wazuh Detection Rules (Open-Source)
+
+The following are examples from the [public Wazuh ruleset](https://github.com/wazuh/wazuh-ruleset) that map to Cyber Kill Chain stages:
+
+```xml
+<!-- Kill Chain Stage 1: Reconnaissance — SSH brute-force detection -->
+<rule id="5710" level="5">
+  <if_matched_sid>5711</if_matched_sid>
+  <match>Failed password</match>
+  <description>sshd: Multiple failed authentication attempts</description>
+  <group>authentication_failed,</group>
+</rule>
+
+<!-- Kill Chain Stage 5: Installation — File integrity change detected -->
+<rule id="550" level="7">
+  <category>ossec</category>
+  <decoded_as>syscheck_integrity_changed</decoded_as>
+  <description>Integrity checksum changed</description>
+  <group>syscheck,</group>
+</rule>
+
+<!-- Kill Chain Stage 6: C2 — Anomalous outbound connection pattern -->
+<rule id="86601" level="12">
+  <if_sid>86600</if_sid>
+  <match>Suricata: Alert</match>
+  <description>IDS event: Possible C2 communication detected</description>
+  <group>ids,</group>
+</rule>
+```
 
 ### SOC = People + Process + Technology
 
@@ -96,7 +131,16 @@ Missing any one of these, a SOC produces noise.
 
 Full write-up: [`../MIDTERM_PROJECT_SUMMARY.md`](../MIDTERM_PROJECT_SUMMARY.md).
 
+### Methodology
+1. Analyzed the Cyber Kill Chain framework (Lockheed Martin, 2011) — seven sequential attack stages
+2. For each stage, identified representative attacker techniques from course material and MITRE ATT&CK
+3. Mapped each technique to specific Wazuh detection capabilities (rule IDs, log types, active response)
+4. Documented defender response actions for each stage (alert, block, tune, investigate)
+5. Produced a structured mapping table connecting the full chain from reconnaissance through actions on objectives
+
 ## Reflection
+
+> **💡 Key Takeaway:** A security program should be audited by which kill-chain stages it can detect, not by which products it owns.
 
 This week was the pivot point of the course. All prior weeks were about **one tool** (Palo Alto NGFW); this week was about **orchestrating many tools and humans** under a framework.
 

@@ -1,30 +1,29 @@
-# Assignments (PDFs Only)
+# Assignments — Sanitized Lab Submissions
 
-This directory holds **sanitized PDF versions** of course assignment submissions.
+Converted from DOCX lab submissions. Student ID redacted; images reference extracted screenshots in [`../screenshots/`](../screenshots/).
 
-## Rules
+## Contents
 
-- **PDFs only.** Original DOCX files are converted and sanitized before commit.
-- **No PII beyond owner attribution.** Instructor and portfolio owner names are retained; all other names, student IDs, and team rosters must be removed.
-- **No secrets, tokens, or API keys** may appear in submission content.
-- Use **Git LFS** for large artifacts if PDF size exceeds typical Git guidance (>10 MB).
+| File | Week | Lab | Screenshots |
+|---|---|---|---|
+| [`Wk01_Lab_03_Firewall_Logs.md`](Wk01_Lab_03_Firewall_Logs.md) | 1 | SOFv2 Lab 03 — Analyzing Firewall Logs | 3 |
+| [`Wk02_Lab_02_ACC.md`](Wk02_Lab_02_ACC.md) | 2 | SOFv2 Lab 02 — Application Command Center | 6 |
+| [`Wk03_Lab_05_Reconnaissance.md`](Wk03_Lab_05_Reconnaissance.md) | 3 | SOFv2 Lab 05 — Stopping Reconnaissance | 7 |
+| [`Wk04_CyberKillChain_Part1.md`](Wk04_CyberKillChain_Part1.md) | 4 | Cyber Kill Chain — Part 1 (individual) | 4 |
+| [`Wk05_Lab_07_Threat_Intelligence.md`](Wk05_Lab_07_Threat_Intelligence.md) | 5 | SOFv2 Lab 07 — Threat Intelligence | 5 |
+| [`Wk06_Lab_06_Endpoint_Security.md`](Wk06_Lab_06_Endpoint_Security.md) | 6 | SOFv2 Lab 06 — Securing Endpoints | 9 |
+| [`Wk08_Lab_02_Internet_Threats.md`](Wk08_Lab_02_Internet_Threats.md) | 8 | CSFv2 Lab 02 — Preventing Internet Threats | 4 |
+| [`Wk09_Lab_03_Container_Security.md`](Wk09_Lab_03_Container_Security.md) | 9 | CSFv2 Lab 03 — Container Networking | 6 |
 
-## Recommended Naming
+## Sanitization Applied
 
-```text
-AssignmentNN_<short-title>.pdf
-WkNN_Lab_<lab-number>_<short-title>.pdf
-```
+- ✅ Student ID (`A00XXXXXX`) replaced with `[Student ID]`
+- ✅ Image references point to extracted PNG screenshots in `../screenshots/`
+- ✅ Email addresses replaced with `[email]`
+- ❌ Original DOCX files with embedded images are **not** included (stored locally)
+- ❌ Vendor lab PDFs are **not** redistributed (copyright)
 
-Examples:
-- `Wk01_Lab_03_Firewall_Logs.pdf`
-- `Wk02_Lab_02_ACC.pdf`
-- `Wk04_CyberKillChain_Part1.pdf`
+## See Also
 
-## Current Status
-
-Assignment PDFs are **pending** conversion from the DOCX submission originals. When added, they will follow the naming convention above. See [`EVIDENCE_INDEX.md`](../EVIDENCE_INDEX.md) for cross-references.
-
-## Source of Truth
-
-Original DOCX submissions reside locally and are **not** included in this public portfolio. They contain embedded lab screenshots and detailed findings that may include third-party copyrighted imagery.
+- [Evidence Index](../EVIDENCE_INDEX.md) — full screenshot gallery with captions
+- [Weekly Summaries](../weekly/) — detailed analysis and reflection per week

@@ -20,6 +20,38 @@ Weeks 8–9 │ Internet threat prevention & container networking
 Weeks 10–12 │ (Not yet delivered at snapshot)
 ```
 
+```mermaid
+graph LR
+    internet["Internet"]
+    perimeter["Perimeter / NGFW<br/>Wk 1-3"]
+    siem["SIEM / SOC<br/>Wk 4"]
+    intel["Threat Intel<br/>Wk 5"]
+    endpoint["Endpoint<br/>Wk 6"]
+    cloud["Cloud<br/>Wk 7"]
+    threats["Internet Threats<br/>Wk 8"]
+    container["Container<br/>Wk 9"]
+
+    internet --> perimeter --> siem --> intel --> endpoint --> cloud --> threats --> container
+
+    classDef internetStyle fill:#718096,stroke:#4a5568,color:#fff
+    classDef perimeterStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff
+    classDef siemStyle fill:#dd6b20,stroke:#9c4221,color:#fff
+    classDef intelStyle fill:#d69e2e,stroke:#975a16,color:#fff
+    classDef endpointStyle fill:#38a169,stroke:#276749,color:#fff
+    classDef cloudStyle fill:#3182ce,stroke:#2c5282,color:#fff
+    classDef threatStyle fill:#805ad5,stroke:#553c9a,color:#fff
+    classDef containerStyle fill:#d53f8c,stroke:#97266d,color:#fff
+
+    class internet internetStyle
+    class perimeter perimeterStyle
+    class siem siemStyle
+    class intel intelStyle
+    class endpoint endpointStyle
+    class cloud cloudStyle
+    class threats threatStyle
+    class container containerStyle
+```
+
 The pedagogical sequence — perimeter → SIEM → intelligence → endpoint → cloud — mirrors how an organization **builds** its security posture: you do not deploy cloud-native container security before you can see and stop basic inbound threats.
 
 ## Three Mental Models That Mattered Most

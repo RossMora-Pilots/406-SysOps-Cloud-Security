@@ -36,7 +36,7 @@ pinger = "1.0"
 tokio = { version = "1", features = ["full"] }
 ```
 
-**Note:** The Rust source file (`main.rs`) is documented via `code-explanation.md`. The original single-file implementation can be reconstructed from the explanation; a clean production version will be added in a future iteration.
+**Note:** The Rust source file ([`ping_sweep/src/main.rs`](scripts/ping_sweep/src/main.rs)) and [`Cargo.toml`](scripts/ping_sweep/Cargo.toml) are included in the repository. See `code-explanation.md` for a detailed line-by-line walkthrough.
 
 ## Provided / External Scripts (`scripts-extra/`)
 

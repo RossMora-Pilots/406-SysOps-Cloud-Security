@@ -31,6 +31,44 @@ Commercial SIEM products (Splunk, QRadar, Sentinel) dominate enterprise SOC depl
 
 The Cyber Kill Chain (Lockheed Martin, 2011) decomposes an attack into seven sequential stages. For each stage, the contribution mapped:
 
+```mermaid
+graph LR
+    recon["1. Reconnaissance<br/>Info Gathering"]
+    weapon["2. Weaponization<br/>Malware + Exploit"]
+    deliver["3. Delivery<br/>Transmit Payload"]
+    exploit["4. Exploitation<br/>Trigger Vulnerability"]
+    install["5. Installation<br/>Establish Persistence"]
+    c2["6. Command<br/>and Control"]
+    actions["7. Actions on<br/>Objectives"]
+
+    recon --> weapon --> deliver --> exploit --> install --> c2 --> actions
+
+    recon -.- d1["Defend: Zone protection,<br/>threat intel"]
+    deliver -.- d3["Defend: Email gateway,<br/>URL filter"]
+    exploit -.- d4["Defend: Endpoint protection,<br/>patching"]
+    install -.- d5["Defend: FIM, HIDS,<br/>process monitoring"]
+    c2 -.- d6["Defend: DNS security,<br/>egress monitoring"]
+    actions -.- d7["Defend: DLP, segmentation,<br/>anomaly detection"]
+
+    classDef reconStyle fill:#3182ce,stroke:#2c5282,color:#fff
+    classDef weaponStyle fill:#805ad5,stroke:#553c9a,color:#fff
+    classDef deliverStyle fill:#d69e2e,stroke:#975a16,color:#fff
+    classDef exploitStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff
+    classDef installStyle fill:#dd6b20,stroke:#9c4221,color:#fff
+    classDef c2Style fill:#38a169,stroke:#276749,color:#fff
+    classDef actionStyle fill:#c53030,stroke:#742a2a,color:#fff
+    classDef defenseStyle fill:#f7fafc,stroke:#a0aec0,color:#2d3748,stroke-dasharray:5
+
+    class recon reconStyle
+    class weapon weaponStyle
+    class deliver deliverStyle
+    class exploit exploitStyle
+    class install installStyle
+    class c2 c2Style
+    class actions actionStyle
+    class d1,d3,d4,d5,d6,d7 defenseStyle
+```
+
 1. **Reconnaissance** — information gathering about target environment
 2. **Weaponization** — coupling malware to an exploit
 3. **Delivery** — transmitting the weaponized payload
@@ -50,6 +88,55 @@ For each stage, the analysis paired:
 The group architecture included:
 
 ### Core Components
+
+```mermaid
+graph BT
+    subgraph sources["Log Sources"]
+        syslog["Syslog / Auth Logs"]
+        winevt["Windows Event Logs"]
+        fim["File Integrity Monitoring"]
+    end
+
+    subgraph endpoints["Endpoint Layer"]
+        agentLin["Wazuh Agent<br/>Linux"]
+        agentWin["Wazuh Agent<br/>Windows"]
+    end
+
+    subgraph processing["Processing Layer"]
+        manager["Wazuh Manager<br/>Rule Engine · Alerts · Active Response"]
+        filebeat["Filebeat<br/>Log Forwarder"]
+    end
+
+    subgraph storage["Storage Layer"]
+        indexer["Wazuh Indexer<br/>OpenSearch"]
+    end
+
+    subgraph analyst["SOC Analyst Layer"]
+        dashboard["Wazuh Dashboard<br/>Web UI"]
+    end
+
+    syslog --> agentLin
+    winevt --> agentWin
+    fim --> agentLin
+    fim --> agentWin
+    agentLin --> manager
+    agentWin --> manager
+    manager --> filebeat
+    filebeat --> indexer
+    indexer --> dashboard
+
+    classDef analystStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef storageStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef processStyle fill:#ed8936,stroke:#c05621,color:#fff
+    classDef endpointStyle fill:#9f7aea,stroke:#6b46c1,color:#fff
+    classDef sourceStyle fill:#fc8181,stroke:#c53030,color:#fff
+
+    class dashboard analystStyle
+    class indexer storageStyle
+    class manager,filebeat processStyle
+    class agentLin,agentWin endpointStyle
+    class syslog,winevt,fim sourceStyle
+```
 
 - **Wazuh Manager** — Central processing node (rule engine, log analysis, alerts)
 - **Wazuh Indexer** (OpenSearch) — Event storage and search

@@ -33,6 +33,49 @@
 
 Containers share the **host kernel** and rely on namespaces + cgroups for isolation. This is a weaker security boundary than a VM's hypervisor boundary. The implication: container escape vulnerabilities are more consequential than VM escape in most architectures.
 
+```mermaid
+graph TD
+    subgraph vmModel["VM Model"]
+        vm_hw["Hardware"]
+        vm_hyp["Hypervisor"]
+        vm_os1["Guest OS 1"]
+        vm_os2["Guest OS 2"]
+        vm_app1["App A"]
+        vm_app2["App B"]
+        vm_hw --> vm_hyp
+        vm_hyp --> vm_os1
+        vm_hyp --> vm_os2
+        vm_os1 --> vm_app1
+        vm_os2 --> vm_app2
+    end
+
+    subgraph containerModel["Container Model"]
+        ct_hw["Hardware"]
+        ct_os["Host OS<br/>(Shared Kernel)"]
+        ct_runtime["Container Runtime"]
+        ct_app1["Container A"]
+        ct_app2["Container B"]
+        ct_hw --> ct_os
+        ct_os --> ct_runtime
+        ct_runtime --> ct_app1
+        ct_runtime --> ct_app2
+    end
+
+    classDef hwStyle fill:#718096,stroke:#4a5568,color:#fff
+    classDef hypStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef osStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef appStyle fill:#ed8936,stroke:#c05621,color:#fff
+    classDef runtimeStyle fill:#9f7aea,stroke:#6b46c1,color:#fff
+    classDef sharedStyle fill:#fc8181,stroke:#c53030,color:#fff
+
+    class vm_hw,ct_hw hwStyle
+    class vm_hyp hypStyle
+    class vm_os1,vm_os2 osStyle
+    class vm_app1,vm_app2,ct_app1,ct_app2 appStyle
+    class ct_runtime runtimeStyle
+    class ct_os sharedStyle
+```
+
 ### Kubernetes Pod Security Standards
 
 Three profiles defined by the Kubernetes project:
@@ -51,6 +94,45 @@ Modern deployments start at **Baseline** and move to **Restricted** workload-by-
 - **East-West** — traffic between workloads inside the cluster (service ↔ service)
 
 Traditional perimeter firewalls only see north-south. **Kubernetes NetworkPolicies** or service mesh (Istio, Linkerd) are required for east-west segmentation. Without them, one compromised pod can pivot laterally.
+
+```mermaid
+graph TD
+    subgraph external["External Traffic"]
+        user["External User / Client"]
+    end
+
+    subgraph cluster["Kubernetes Cluster"]
+        ingress["Ingress Controller"]
+
+        subgraph nsA["Namespace A"]
+            podA1["Pod A1<br/>(Frontend)"]
+            podA2["Pod A2<br/>(API)"]
+        end
+
+        subgraph nsB["Namespace B"]
+            podB1["Pod B1<br/>(Database)"]
+        end
+
+        netpol{{"NetworkPolicy<br/>(East-West Enforcement)"}}
+    end
+
+    user -->|North-South| ingress
+    ingress --> podA1
+    podA1 <-->|East-West| podA2
+    podA1 -.->|controlled by policy| podB1
+    netpol -.-> podA1
+    netpol -.-> podB1
+
+    classDef externalStyle fill:#718096,stroke:#4a5568,color:#fff
+    classDef ingressStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef podStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef policyStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff
+
+    class user externalStyle
+    class ingress ingressStyle
+    class podA1,podA2,podB1 podStyle
+    class netpol policyStyle
+```
 
 ### Container Image Supply Chain
 
@@ -74,7 +156,16 @@ Do **not** bake secrets into images. Patterns:
 - Report submitted as DOCX — includes screenshots of container-networking configuration and security policy.
 - Sanitized PDF to be added to [`../assignments/`](../assignments/).
 
+### Methodology
+1. Explored Docker networking models (bridge, host, overlay) and their security implications
+2. Configured Kubernetes NetworkPolicy resources to enforce east-west pod-to-pod segmentation
+3. Examined Pod Security Standards (privileged, baseline, restricted) and their enforcement mechanisms
+4. Reviewed container image supply-chain controls — scanning, signing, admission controllers
+5. Documented how Palo Alto CN-Series and Prisma Cloud extend NGFW concepts into container-native environments
+
 ## Reflection
+
+> **💡 Key Takeaway:** Containers share the host kernel, making east-west segmentation via Kubernetes NetworkPolicies essential — a cluster-external firewall cannot see pod-to-pod traffic.
 
 Container security requires a new mental model. The **host perimeter** model assumes machines are atomic units; containers break that assumption. A Kubernetes cluster has its own internal topology — its own pods, services, policies, DNS — that a cluster-external firewall cannot see.
 

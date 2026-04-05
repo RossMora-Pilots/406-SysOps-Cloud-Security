@@ -38,6 +38,36 @@ URL filtering is often under-appreciated. Most enterprise attacks involve:
 
 A well-tuned URL filter prevents a significant fraction of endpoint compromises.
 
+```mermaid
+graph TD
+    request["User Web Request"]
+    dns["DNS Resolution<br/>(DNS Security)"]
+    urlFilter["URL Filter<br/>(Category Check)"]
+    fileBlock["File Blocking<br/>(MIME Type Check)"]
+    wildfire["WildFire Analysis<br/>(Cloud Sandbox)"]
+    allowed["Allowed Content"]
+
+    request --> dns
+    dns -->|clean| urlFilter
+    dns -->|malicious domain| block1["Blocked"]
+    urlFilter -->|allowed category| fileBlock
+    urlFilter -->|blocked category| block2["Blocked"]
+    fileBlock -->|allowed type| wildfire
+    fileBlock -->|blocked type| block3["Blocked"]
+    wildfire -->|benign| allowed
+    wildfire -->|malicious| block4["Blocked"]
+
+    classDef requestStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef layerStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef blockStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff
+    classDef allowStyle fill:#38a169,stroke:#276749,color:#fff
+
+    class request requestStyle
+    class dns,urlFilter,fileBlock,wildfire layerStyle
+    class block1,block2,block3,block4 blockStyle
+    class allowed allowStyle
+```
+
 ### DNS Security at the Name-Resolution Layer
 
 DNS security blocks **before** the HTTP request is even made. Benefits:
@@ -63,7 +93,16 @@ This week shifts from the **SOFv2** (Security Operating Fundamentals v2) lab tra
 - Report submitted as DOCX — includes screenshots of URL filtering profile configuration, DNS security settings, and file blocking action tables.
 - Sanitized PDF to be added to [`../assignments/`](../assignments/).
 
+### Methodology
+1. Configured a URL Filtering profile with category-based allow/block/alert actions using PAN-DB categories
+2. Enabled DNS Security cloud service for domain-level threat blocking at name resolution
+3. Created a File Blocking profile with MIME-type rules (block executables, alert on archives)
+4. Integrated all profiles into a security policy rule within the CSFv2 cloud-deployed NGFW context
+5. Tested filtering by generating controlled traffic to known test URLs and verifying block/alert actions
+
 ## Reflection
+
+> **💡 Key Takeaway:** Good policy minimizes expensive deep inspection by cutting threats at the cheapest layers first — DNS blocking before URL filtering before file analysis.
 
 This week tied together the threads of Weeks 5 (threat intelligence) and Week 6 (endpoint protection): URL filtering, DNS security, and file blocking are **intel-driven prevention** layers that operate on different abstractions (domains, names, file types) but share the same intelligence source.
 

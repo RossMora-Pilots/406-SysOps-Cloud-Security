@@ -1,6 +1,10 @@
 # SysOps and Cloud Security — Aditya Palshikar — CSC-7308
 
-![Portfolio CI](https://github.com/<owner>/<repo>/actions/workflows/portfolio-ci.yml/badge.svg)
+<!-- CI badge — will activate once published to GitHub -->
+<!-- ![Portfolio CI](https://github.com/OWNER/REPO/actions/workflows/portfolio-ci.yml/badge.svg) -->
+
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Evidence](https://img.shields.io/badge/screenshots-44-orange)
 
 > **Start Here** — course overview, learning outcomes, weekly navigation, and evidence.
 

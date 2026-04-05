@@ -58,7 +58,16 @@ WildFire receives unknown-verdict samples from Palo Alto firewalls globally, ana
 - Report submitted as DOCX — includes screenshots of AutoFocus tag views, IoC detail pages, and how indicators were pulled into firewall policy or external blocklists.
 - Sanitized PDF to be added to [`../assignments/`](../assignments/).
 
+### Methodology
+1. Accessed the Palo Alto AutoFocus threat intelligence portal
+2. Explored tag views for known malware families, identifying IoC types (hashes, domains, IPs)
+3. Correlated AutoFocus indicators with NGFW threat prevention logs
+4. Examined WildFire verdict delivery pipeline — sample submission, analysis, signature publication
+5. Documented how threat intelligence feeds integrate into NGFW blocklists for automated prevention
+
 ## Reflection
+
+> **💡 Key Takeaway:** Threat intelligence is a feedback loop, not a data feed — every firewall's observations strengthen the collective defense of all participants.
 
 Threat intelligence reframes security from "my network" to "the network of networks." If an attacker burned an IoC against another organization's firewall yesterday, my firewall should benefit from that knowledge today.
 
