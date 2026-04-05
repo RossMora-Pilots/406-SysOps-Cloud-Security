@@ -75,6 +75,11 @@ The Rust choice was deliberate — I wanted a concurrent, memory-safe implementa
 
 Key takeaway: **the best way to understand a defender's view is to generate the traffic yourself**.
 
+## Evidence
+
+- **Lab Submission:** [Lab 02 — Using the Application Command Center (ACC)](../assignments/Wk02_Lab_02_ACC.md)
+- **Screenshots:** [6 images](../screenshots/) — `wk02_acc_1.png` through `wk02_acc_6.png`
+
 ## Connections
 
 - **Week 3** — The ping-sweep tool generates exactly the kind of traffic that Week 3's reconnaissance-prevention controls are designed to detect and block.

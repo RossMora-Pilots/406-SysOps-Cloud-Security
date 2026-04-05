@@ -66,6 +66,11 @@ The first week set the rhythm: **every** subsequent discussion would trace back 
 
 The biggest surprise: how much noise a production firewall generates. Scrolling raw logs is useless; disciplined filter-writing is the entire job.
 
+## Evidence
+
+- **Lab Submission:** [Lab 03 — Analyzing Firewall Logs](../assignments/Wk01_Lab_03_Firewall_Logs.md)
+- **Screenshots:** [3 images](../screenshots/) — `wk01_firewall_logs_1.png` through `wk01_firewall_logs_3.png`
+
 ## Connections
 
 - **Week 2** — The ACC visualizes aggregates of these same logs.

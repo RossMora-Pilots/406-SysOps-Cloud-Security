@@ -173,6 +173,11 @@ This week completed the **breadth arc** of the course: from perimeter NGFW (Week
 
 A gap the course did not close: **service mesh** (Istio, Linkerd) is the modern answer to east-west segmentation in Kubernetes, and it barely surfaced. For real-world container security, that would be the next study topic.
 
+## Evidence
+
+- **Lab Submission:** [Lab 03 — Container Networking and Security](../assignments/Wk09_Lab_03_Container_Security.md)
+- **Screenshots:** [6 images](../screenshots/) — `wk09_container_1.png` through `wk09_container_6.png`
+
 ## Connections
 
 - **Week 7** — Cloud concepts underpinning containers.

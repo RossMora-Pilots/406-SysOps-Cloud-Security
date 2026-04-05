@@ -131,6 +131,11 @@ The signature-driven model has a well-known weakness: novel exploits evade signa
 
 Personal takeaway: **every security policy rule should have a profile group attached by default**. Rules without profiles are trust-only controls — they are the weakest link in a NGFW configuration.
 
+## Evidence
+
+- **Lab Submission:** [Lab 06 — Securing Endpoints with Vulnerability Profiles](../assignments/Wk06_Lab_06_Endpoint_Security.md)
+- **Screenshots:** [9 images](../screenshots/) — `wk06_endpoint_1.png` through `wk06_endpoint_9.png`
+
 ## Connections
 
 - **Week 4** — Wazuh agents provide the endpoint-side telemetry that complements NGFW profile observations.

@@ -148,6 +148,11 @@ Building the Cyber Kill Chain mapping forced me to confront a gap: I knew attack
 
 The Wazuh-vs-commercial decision is also clarifying. Commercial SIEMs (Splunk, QRadar, Sentinel) have deeper integrations and better dashboards, but Wazuh is **genuinely viable** for SMB, education, and homelab environments. Every organization of my size should at least prototype with Wazuh before committing to six-figure licensing.
 
+## Evidence
+
+- **Lab Submission:** [Cyber Kill Chain — Part 1](../assignments/Wk04_CyberKillChain_Part1.md)
+- **Screenshots:** [4 images](../screenshots/) — `wk04_cyber_kill_chain_1.png` through `wk04_cyber_kill_chain_4.png`
+
 ## Connections
 
 - **Week 5** — Threat intelligence (AutoFocus) feeds IoCs into SIEM correlation.

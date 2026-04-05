@@ -95,6 +95,11 @@ This week delivered the **attacker-defender** contrast the course is built on. B
 
 A key lesson: defenders do not need to know the specific tool. Zone Protection does not care whether my scanner is written in Rust, Python, or bash — it pattern-matches on behavior (many destinations, low packet count per destination, consistent source).
 
+## Evidence
+
+- **Lab Submission:** [Lab 05 — Stopping Reconnaissance Attacks](../assignments/Wk03_Lab_05_Reconnaissance.md)
+- **Screenshots:** [7 images](../screenshots/) — `wk03_recon_1.png` through `wk03_recon_7.png`
+
 ## Connections
 
 - **Week 2** — The Rust ping-sweep tool I built is the textbook attacker behavior this week's controls detect.

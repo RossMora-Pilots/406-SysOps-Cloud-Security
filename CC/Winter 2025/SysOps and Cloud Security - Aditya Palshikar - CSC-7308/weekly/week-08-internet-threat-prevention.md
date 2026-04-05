@@ -108,6 +108,11 @@ This week tied together the threads of Weeks 5 (threat intelligence) and Week 6 
 
 A practical insight: defense layering has a **cost gradient**. Blocking at DNS is cheapest; blocking at URL filter is moderate; inspecting file content and submitting to WildFire is expensive. Good policy minimizes expensive inspection by cutting threats at the cheap layers first.
 
+## Evidence
+
+- **Lab Submission:** [Lab 02 — Preventing Internet Threats with File Blocking](../assignments/Wk08_Lab_02_Internet_Threats.md)
+- **Screenshots:** [4 images](../screenshots/) — `wk08_threat_prevention_1.png` through `wk08_threat_prevention_4.png`
+
 ## Connections
 
 - **Week 5** — URL filter, DNS security, and file blocking all consume intelligence sourced from AutoFocus/WildFire.

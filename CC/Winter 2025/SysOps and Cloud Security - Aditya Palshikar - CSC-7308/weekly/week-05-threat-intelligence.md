@@ -75,6 +75,11 @@ The most important conceptual shift: **intelligence is a loop, not a feed**. Aut
 
 A reservation: threat intel creates **signature fatigue** risk. Blocklists grow unbounded; old indicators stale; false positives bleed credibility. Tuning cadence matters.
 
+## Evidence
+
+- **Lab Submission:** [Lab 07 — Threat Intelligence](../assignments/Wk05_Lab_07_Threat_Intelligence.md)
+- **Screenshots:** [5 images](../screenshots/) — `wk05_threat_intel_1.png` through `wk05_threat_intel_5.png`
+
 ## Connections
 
 - **Week 4** — Threat intel feeds SIEM correlation rules in Wazuh (or any SIEM).
