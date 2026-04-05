@@ -1,0 +1,83 @@
+{
+  "course_path": "CC/Winter 2025/SysOps and Cloud Security - Aditya Palshikar - CSC-7308",
+  "course": {
+    "code": "CSC-7308",
+    "title": "SysOps and Cloud Security",
+    "instructor": "Aditya Palshikar",
+    "term": "Winter 2025",
+    "section": "002",
+    "crn": "11819",
+    "institution": "Cambrian College",
+    "location": "Sudbury, Ontario",
+    "program": "Postgraduate Cybersecurity Certificate",
+    "credit_hours": 3,
+    "delivered_weeks": 9,
+    "total_weeks": 12
+  },
+  "metrics": {
+    "weekly_labs_completed": 8,
+    "group_projects": 1,
+    "original_code_projects": 1,
+    "weekly_summaries_written": 9,
+    "lecture_hours_attended": 15
+  },
+  "skills": [
+    "Palo Alto Networks NGFW Administration",
+    "Application Command Center (ACC) Analytics",
+    "Zone Protection & DoS Protection Policies",
+    "Vulnerability & Antivirus Profile Configuration",
+    "URL Filtering & DNS Security",
+    "AutoFocus Threat Intelligence",
+    "WildFire Malware Analysis Integration",
+    "Wazuh SIEM Architecture & Deployment",
+    "Cyber Kill Chain Framework Application",
+    "SOC Operations & Incident Response",
+    "Cloud Security Models (IaaS/PaaS/SaaS)",
+    "Shared Responsibility Model",
+    "Microsoft Defender for Cloud / Containers",
+    "Microsoft Entra ID Identity Concepts",
+    "Docker & Kubernetes Security",
+    "Container Network Policies & East-West Segmentation",
+    "Rust Async Programming (Tokio)",
+    "Thread-Safe Concurrency (MPSC Channels)",
+    "Network Programming (IPv4, CIDR, ICMP)",
+    "Git Version Control & Conventional Commits",
+    "CI/CD with GitHub Actions"
+  ],
+  "evidence": {
+    "weekly_summaries": [
+      "weekly/week-01-firewall-log-analysis.md",
+      "weekly/week-02-application-command-center.md",
+      "weekly/week-03-reconnaissance-prevention.md",
+      "weekly/week-04-build-a-soc-group-project.md",
+      "weekly/week-05-threat-intelligence.md",
+      "weekly/week-06-endpoint-security.md",
+      "weekly/week-07-cloud-computing-containers.md",
+      "weekly/week-08-internet-threat-prevention.md",
+      "weekly/week-09-container-networking-security.md"
+    ],
+    "midterm": [
+      "MIDTERM_PROJECT_SUMMARY.md"
+    ],
+    "original_code": [
+      "scripts/ping_sweep/README.md",
+      "scripts/ping_sweep/code-explanation.md",
+      "scripts/ping_sweep/ping-sweep-diagram.svg"
+    ]
+  },
+  "references": [
+    { "title": "PAN-OS Admin Guide", "url": "https://docs.paloaltonetworks.com/pan-os" },
+    { "title": "Wazuh Documentation", "url": "https://documentation.wazuh.com/" },
+    { "title": "Lockheed Martin Cyber Kill Chain", "url": "https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html" },
+    { "title": "MITRE ATT&CK", "url": "https://attack.mitre.org/" },
+    { "title": "NIST SP 800-145 (Cloud Computing)", "url": "https://csrc.nist.gov/publications/detail/sp/800-145/final" },
+    { "title": "NIST SP 800-190 (Container Security)", "url": "https://csrc.nist.gov/publications/detail/sp/800-190/final" },
+    { "title": "Kubernetes Pod Security Standards", "url": "https://kubernetes.io/docs/concepts/security/pod-security-standards/" },
+    { "title": "Tokio Async Runtime", "url": "https://tokio.rs/" }
+  ],
+  "related_pilots": [
+    { "slug": "008-Cybersecurity-Network-Defense-Portfolio", "relationship": "reference implementation" },
+    { "slug": "009-Course-Repository-Template-and-Guidelines", "relationship": "canonical template" },
+    { "slug": "010-Intro-To-Cybersecurity-Csc-7301-Fall-2024-Instructor-Maryam-Ahmed", "relationship": "companion course" }
+  ]
+}

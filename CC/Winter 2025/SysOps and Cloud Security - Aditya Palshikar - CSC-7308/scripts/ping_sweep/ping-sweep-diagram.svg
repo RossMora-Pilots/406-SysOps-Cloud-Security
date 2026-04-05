@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+    <!-- Styles -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+        </marker>
+    </defs>
+    
+    <!-- Shapes and Connections -->
+    <!-- Start -->
+    <rect x="350" y="50" width="100" height="50" rx="25" fill="#4CAF50" stroke="#333" stroke-width="2"/>
+    <text x="400" y="80" text-anchor="middle" fill="white" font-family="Arial">Start</text>
+    
+    <!-- Get User Input: Base IP -->
+    <rect x="300" y="150" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
+    <text x="400" y="180" text-anchor="middle" fill="white" font-family="Arial">Get User Input: Base IP</text>
+    
+    <!-- Get User Input: Subnet -->
+    <rect x="300" y="250" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
+    <text x="400" y="280" text-anchor="middle" fill="white" font-family="Arial">Get User Input: Subnet</text>
+    
+    <!-- Calculate IP Range -->
+    <rect x="300" y="350" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
+    <text x="400" y="380" text-anchor="middle" fill="white" font-family="Arial">Calculate IP Range</text>
+    
+    <!-- Loop through IP Range -->
+    <rect x="300" y="450" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
+    <text x="400" y="480" text-anchor="middle" fill="white" font-family="Arial">Loop through IP Range</text>
+    
+    <!-- Execute Ping -->
+    <rect x="300" y="550" width="200" height="50" rx="5" fill="#64B5F6" stroke="#333" stroke-width="2"/>
+    <text x="400" y="580" text-anchor="middle" fill="white" font-family="Arial">Execute Ping</text>
+    
+    <!-- Check Result -->
+    <polygon points="400,650 450,700 400,750 350,700" fill="#FFA726" stroke="#333" stroke-width="2"/>
+    <text x="400" y="705" text-anchor="middle" fill="white" font-family="Arial">Check Result</text>
+    
+    <!-- Success/Failure Boxes -->
+    <rect x="200" y="800" width="150" height="50" rx="5" fill="#81C784" stroke="#333" stroke-width="2"/>
+    <text x="275" y="830" text-anchor="middle" fill="white" font-family="Arial">Host is Up</text>
+    
+    <rect x="450" y="800" width="150" height="50" rx="5" fill="#E57373" stroke="#333" stroke-width="2"/>
+    <text x="525" y="830" text-anchor="middle" fill="white" font-family="Arial">Host Unreachable</text>
+    
+    <!-- End -->
+    <rect x="350" y="900" width="100" height="50" rx="25" fill="#f44336" stroke="#333" stroke-width="2"/>
+    <text x="400" y="930" text-anchor="middle" fill="white" font-family="Arial">End</text>
+    
+    <!-- Connections -->
+    <line x1="400" y1="100" x2="400" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="400" y1="200" x2="400" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="400" y1="300" x2="400" y2="350" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="400" y1="400" x2="400" y2="450" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="400" y1="500" x2="400" y2="550" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="400" y1="600" x2="400" y2="650" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Success/Failure paths -->
+    <line x1="350" y1="700" x2="275" y2="800" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="450" y1="700" x2="525" y2="800" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Converging paths -->
+    <line x1="275" y1="850" x2="400" y2="900" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="525" y1="850" x2="400" y2="900" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+</svg>

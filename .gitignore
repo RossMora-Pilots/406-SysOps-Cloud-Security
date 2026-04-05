@@ -1,0 +1,12 @@
+artifacts/
+*.log
+__pycache__/
+node_modules/
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+*.mp4
+*.mov
+*.avi
+*.wmv

@@ -1,0 +1,20 @@
+title = "Pilot 406 Gitleaks Config"
+
+[allowlist]
+description = "Allow known examples/placeholders and docs"
+paths = [
+  '''README\.md$''',
+  '''CONTRIBUTING\.md$''',
+  '''ROADMAP\.md$''',
+  '''AGENTS\.md$''',
+  '''docs/.*\.md$''',
+  '''scripts/sessions/sanitize_session\.py$''',
+  '''scripts/roadmap/sync_roadmap\.sh$''',
+]
+regexes = [
+  '''(?i)GH_TOKEN''',
+  '''(?i)GITHUB_TOKEN''',
+  '''(?i)OP_SERVICE_ACCOUNT_TOKEN''',
+  '''(?i)AWS_SECRET_ACCESS_KEY''',
+  '''(?i)A00322717''',
+]

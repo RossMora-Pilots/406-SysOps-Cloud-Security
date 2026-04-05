@@ -1,0 +1,30 @@
+name: PM Evidence
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  parse-roadmap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Parse roadmap
+        run: |
+          mkdir -p artifacts
+          python3 scripts/roadmap/parse_roadmap.py ROADMAP.md --out artifacts/roadmap.json
+      - name: Index sessions
+        run: |
+          python3 scripts/sessions/index_sessions.py --sessions sessions --out docs/sessions.md || true
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pm-evidence
+          path: |
+            artifacts/roadmap.json
+            docs/sessions.md
+          if-no-files-found: warn

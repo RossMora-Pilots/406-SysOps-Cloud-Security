@@ -1,0 +1,16 @@
+flowchart TD
+    A[Start] --> B[Get User Input: Base IP]
+    B --> C[Get User Input: Subnet Mask]
+    C --> D[Calculate IP Range]
+    D --> E[Loop through IP Range]
+    E --> F[Format IP Address]
+    F --> G[Spawn Blocking Thread]
+    G --> H[Create Channel]
+    H --> I[Execute Ping]
+    I --> J{Check Result}
+    J -->|Success| K[Print Host is Up]
+    J -->|Failure| L[Print Host is Unreachable]
+    K --> M{More IPs?}
+    L --> M
+    M -->|Yes| E
+    M -->|No| N[End]
