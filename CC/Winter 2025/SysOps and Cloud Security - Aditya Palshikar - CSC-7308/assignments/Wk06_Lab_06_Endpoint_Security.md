@@ -1,4 +1,4 @@
-**[Student ID] Ross Moravec Lab 6: Securing Endpoints using Vulnerability Profiles**
+# Lab 06 — Securing Endpoints with Vulnerability Profiles
 
 
 

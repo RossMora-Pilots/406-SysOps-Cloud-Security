@@ -1,4 +1,4 @@
-**Lab 03: Analyzing Firewall Logs -- [Student ID] -- Ross Moravec**
+# Lab 03 — Analyzing Firewall Logs
 
 
 

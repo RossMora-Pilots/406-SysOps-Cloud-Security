@@ -1,4 +1,4 @@
-**PAN Security Operations Fundamentals v2: Stopping Reconnaissance Attacks**
+# Lab 05 — Stopping Reconnaissance Attacks
 
 
 

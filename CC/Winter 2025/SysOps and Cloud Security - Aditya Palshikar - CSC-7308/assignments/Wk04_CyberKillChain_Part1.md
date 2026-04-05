@@ -1,4 +1,4 @@
-**[Student ID] -- Ross Moravec - Cyber Kill Chain (Part 1) taken Jan 26^th,^ 2025**
+# Cyber Kill Chain — Part 1
 
 
 

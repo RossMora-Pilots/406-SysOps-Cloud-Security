@@ -1,4 +1,4 @@
-**[Student ID] Ross Moravec Lab 3 Container Network and Security**
+# Lab 03 — Container Networking and Security
 
 
 

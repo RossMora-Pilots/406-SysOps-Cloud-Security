@@ -1,4 +1,4 @@
-**[Student ID] Ross Moravec Lab 02 Preventing Internet Threats with File Blocking**
+# Lab 02 — Preventing Internet Threats with File Blocking
 
 
 

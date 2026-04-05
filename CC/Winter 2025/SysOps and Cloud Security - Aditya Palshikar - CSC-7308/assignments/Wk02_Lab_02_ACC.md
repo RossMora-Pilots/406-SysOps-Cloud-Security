@@ -1,4 +1,4 @@
-**Lab 02: Using the Application Command Center (ACC) to Find Threat -- [Student ID] -- Ross Moravec**
+# Lab 02 — Using the Application Command Center (ACC)
 
 
 

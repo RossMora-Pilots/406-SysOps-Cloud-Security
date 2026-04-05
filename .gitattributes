@@ -1,9 +1,9 @@
+# Large binary artifacts tracked via Git LFS (when LFS server is available)
 artifacts/** filter=lfs diff=lfs merge=lfs -text
 images/** filter=lfs diff=lfs merge=lfs -text
-CC/**/screenshots/** filter=lfs diff=lfs merge=lfs -text
 *.pdf filter=lfs diff=lfs merge=lfs -text
-*.png filter=lfs diff=lfs merge=lfs -text
-*.jpg filter=lfs diff=lfs merge=lfs -text
-*.png !text !filter !merge !diff
-*.jpg !text !filter !merge !diff
-CC/**/screenshots/** !text !filter !merge !diff
+
+# Screenshots stored as regular git objects (NAS remote lacks LFS support)
+*.png binary
+*.jpg binary
+CC/**/screenshots/** binary

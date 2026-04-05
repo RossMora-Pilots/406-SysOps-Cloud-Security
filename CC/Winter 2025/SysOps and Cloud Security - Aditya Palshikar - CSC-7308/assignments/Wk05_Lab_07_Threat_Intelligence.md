@@ -1,4 +1,4 @@
-**[Student ID] Ross Moravec Lab 7 Threat Intelligence**
+# Lab 07 — Threat Intelligence
 
 
 
