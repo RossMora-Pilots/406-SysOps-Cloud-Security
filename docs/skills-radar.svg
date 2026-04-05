@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+<style>
+  .grid-line { stroke: #cbd5e0; stroke-width: 0.5; fill: none; }
+  .axis-line { stroke: #a0aec0; stroke-width: 0.8; }
+  .skill-area { fill: rgba(66, 153, 225, 0.25); stroke: #3182ce; stroke-width: 2; }
+  .skill-dot { fill: #2b6cb0; }
+  .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;    font-size: 11px; fill: #2d3748; text-anchor: middle; }
+  .level-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;    font-size: 9px; fill: #a0aec0; text-anchor: middle; }
+  .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;    font-size: 16px; font-weight: 600; fill: #1a202c; text-anchor: middle; }
+  .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;    font-size: 11px; fill: #718096; text-anchor: middle; }
+</style>
+<text x="250" y="25" class="title">Skills Proficiency Radar</text>
+<text x="250" y="42" class="subtitle">CSC-7308 SysOps and Cloud Security — Winter 2025</text>
+<polygon points="250.0,214.0 275.5,224.5 286.0,250.0 275.5,275.5 250.0,286.0 224.5,275.5 214.0,250.0 224.5,224.5" class="grid-line" />
+<polygon points="250.0,178.0 300.9,199.1 322.0,250.0 300.9,300.9 250.0,322.0 199.1,300.9 178.0,250.0 199.1,199.1" class="grid-line" />
+<polygon points="250.0,142.0 326.4,173.6 358.0,250.0 326.4,326.4 250.0,358.0 173.6,326.4 142.0,250.0 173.6,173.6" class="grid-line" />
+<polygon points="250.0,106.0 351.8,148.2 394.0,250.0 351.8,351.8 250.0,394.0 148.2,351.8 106.0,250.0 148.2,148.2" class="grid-line" />
+<polygon points="250.0,70.0 377.3,122.7 430.0,250.0 377.3,377.3 250.0,430.0 122.7,377.3 70.0,250.0 122.7,122.7" class="grid-line" />
+<text x="264.0" y="218.0" class="level-label">1</text>
+<text x="264.0" y="182.0" class="level-label">2</text>
+<text x="264.0" y="146.0" class="level-label">3</text>
+<text x="264.0" y="110.0" class="level-label">4</text>
+<text x="264.0" y="74.0" class="level-label">5</text>
+<line x1="250" y1="250" x2="250.0" y2="70.0" class="axis-line" />
+<text x="250.0" y="42.0" class="label">NGFW Config</text>
+<line x1="250" y1="250" x2="377.3" y2="122.7" class="axis-line" />
+<text x="399.9" y="104.1" class="label">Log Analysis</text>
+<line x1="250" y1="250" x2="430.0" y2="250.0" class="axis-line" />
+<text x="462.0" y="254.0" class="label">Threat Intel</text>
+<line x1="250" y1="250" x2="377.3" y2="377.3" class="axis-line" />
+<text x="399.9" y="403.9" class="label">SIEM / SOC</text>
+<line x1="250" y1="250" x2="250.0" y2="430.0" class="axis-line" />
+<text x="250.0" y="466.0" class="label">Endpoint Security</text>
+<line x1="250" y1="250" x2="122.7" y2="377.3" class="axis-line" />
+<text x="100.1" y="403.9" class="label">Cloud Security</text>
+<line x1="250" y1="250" x2="70.0" y2="250.0" class="axis-line" />
+<text x="38.0" y="254.0" class="label">Container Security</text>
+<line x1="250" y1="250" x2="122.7" y2="122.7" class="axis-line" />
+<text x="100.1" y="104.1" class="label">Software Dev</text>
+<polygon points="250.0,88.0 364.6,135.4 376.0,250.0 339.1,339.1 250.0,394.0 186.4,313.6 142.0,250.0 148.2,148.2" class="skill-area" />
+<circle cx="250.0" cy="88.0" r="4" class="skill-dot" />
+<circle cx="364.6" cy="135.4" r="4" class="skill-dot" />
+<circle cx="376.0" cy="250.0" r="4" class="skill-dot" />
+<circle cx="339.1" cy="339.1" r="4" class="skill-dot" />
+<circle cx="250.0" cy="394.0" r="4" class="skill-dot" />
+<circle cx="186.4" cy="313.6" r="4" class="skill-dot" />
+<circle cx="142.0" cy="250.0" r="4" class="skill-dot" />
+<circle cx="148.2" cy="148.2" r="4" class="skill-dot" />
+<rect x="110" y="472" width="10" height="10" rx="2" fill="#38a169" />
+<text x="124" y="481" class="label" text-anchor="start">Hands-on (4-5)</text>
+<rect x="240" y="472" width="10" height="10" rx="2" fill="#d69e2e" />
+<text x="254" y="481" class="label" text-anchor="start">Applied (3-4)</text>
+<rect x="370" y="472" width="10" height="10" rx="2" fill="#4a90d9" />
+<text x="384" y="481" class="label" text-anchor="start">Conceptual (1-3)</text>
+</svg>

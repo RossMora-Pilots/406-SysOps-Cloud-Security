@@ -1,66 +1,63 @@
 # Lab 06 — Securing Endpoints with Vulnerability Profiles
 
+> **Course:** SysOps and Cloud Security (CSC-7308) — Winter 2025
+> **Week:** 6
+> **Platform:** Palo Alto Networks PAN-OS
 
+## Executive Summary
 
-**1.1 Download and Install the Latest Dynamic Updates of Antivirus -- Step 2**
+This lab configured endpoint protection on a Palo Alto Networks firewall by installing antivirus dynamic updates, manually updating the Applications and Threats content database, creating a custom vulnerability signature, and testing the vulnerability protection profile. A notable finding was a version mismatch between the lab guide's expected content update file and the version available in the lab environment — demonstrating the importance of verifying update versions in production deployments.
 
+---
 
+## 1.1 — Download and Install Latest Antivirus Dynamic Updates (Step 2)
 
-![A computer screen with a white box](../screenshots/wk06_endpoint_1.png)
+Navigating to the PAN-OS dynamic updates panel to download and install the latest antivirus signatures. Dynamic updates ensure the firewall's threat detection capabilities remain current against newly discovered malware:
 
+![PAN-OS dynamic updates panel showing available antivirus update packages for download](../screenshots/wk06_endpoint_1.png)
 
+![PAN-OS dynamic updates panel confirming successful antivirus update installation](../screenshots/wk06_endpoint_2.png)
 
-![A screenshot of a computer](../screenshots/wk06_endpoint_2.png)
+## 1.2 — Install Manual Update of Applications and Threats (Step 12)
 
+> **⚠️ Observation — Version Mismatch:**
+> The lab instructions reference content update file `panupv2-all-contents-8786-8435`, but only `panupv2-all-contents-8624-7617` was available in the lab environment. This is likely due to the lab environment running an older content release than the guide was written for. I proceeded with the available version, as the lab objectives remain achievable regardless of the specific content version.
 
+**Download:** Only the file **`panupv2-all-contents-8624-7617`** is available for download, though the instructions mention `panupv2-all-contents-8786-8435`. I proceed with the only file available.
 
-**1.2 Install Manual Update of Applications and Threats -- Step 12**
+![PAN-OS content update download panel showing the available Applications and Threats package](../screenshots/wk06_endpoint_3.png)
 
+**Installation:** Only the file **`panupv2-all-contents-8624-7617`** was available for installation, though the instructions mention `panupv2-all-contents-8786-8435`. I proceed with the only file available.
 
+![PAN-OS content update installation progress for the Applications and Threats package](../screenshots/wk06_endpoint_4.png)
 
-Only the file **"panupv2-all-contents-8624-7617"** is available for download, though the instructions mention "panupv2-all-contents-8786-8435". I proceed with the only file available.
+**Verification:** The file **`panupv2-all-contents-8624-7617`** with a checkmark in the "Currently Installed" column. The instructions mention `panupv2-all-contents-8786-8435` but no such file was available for download and installation.
 
+![PAN-OS dynamic updates panel showing the installed content version with a checkmark confirming active status](../screenshots/wk06_endpoint_5.png)
 
+## 1.3 — Create a Custom Vulnerability Signature (Step 5)
 
-![A screenshot of a computer](../screenshots/wk06_endpoint_3.png)
+Defining a custom vulnerability signature in PAN-OS to detect specific exploit patterns not yet covered by the built-in signature set. Custom signatures extend protection to organization-specific or emerging threats:
 
+![PAN-OS custom vulnerability signature configuration — general settings and threat metadata](../screenshots/wk06_endpoint_6.png)
 
+![PAN-OS custom vulnerability signature configuration — pattern matching rules and conditions](../screenshots/wk06_endpoint_7.png)
 
-Only the file **"panupv2-all-contents-8624-7617"** was available for installation, though the instructions mention "panupv2-all-contents-8786-8435". I proceed with the only file available.
+## 1.6 — Commit and Test Vulnerability Protection (Step 9)
 
+Committing the configuration changes and testing the vulnerability protection profile to verify that the firewall correctly detects and blocks traffic matching both built-in and custom vulnerability signatures:
 
+![PAN-OS commit dialog confirming successful configuration push to the firewall](../screenshots/wk06_endpoint_8.png)
 
-![A screenshot of a computer](../screenshots/wk06_endpoint_4.png)
+![PAN-OS threat log showing detected vulnerability events confirming protection is active](../screenshots/wk06_endpoint_9.png)
 
+---
 
+## Security Significance & Analysis
 
-The file **"panupv2-all-contents-8624-7617"** with a checkmark in the column "Currently Installed". The instructions mention "panupv2-all-contents-8786-8435" but no such file was available for download and installation.
-
-
-
-![A screenshot of a computer](../screenshots/wk06_endpoint_5.png)
-
-
-
-**1.3 Create a Custom Vulnerability Signature -- Step 5**
-
-
-
-![A screenshot of a computer](../screenshots/wk06_endpoint_6.png)
-
-
-
-![A computer screen shot of a computer](../screenshots/wk06_endpoint_7.png)
-
-
-
-**1.6 Commit and Test Vulnerability Protection -- Step 9**
-
-
-
-![A screenshot of a computer](../screenshots/wk06_endpoint_8.png)
-
-
-
-![A screenshot of a computer](../screenshots/wk06_endpoint_9.png)
+- **Defense-in-depth at the network edge:** Vulnerability profiles on PAN-OS inspect traffic inline and block exploit attempts before they reach endpoints, complementing host-based protections like EDR and OS patching.
+- **Content update lifecycle:** The version mismatch observed in Section 1.2 highlights a critical operational reality — content update versions in lab environments (and production) may not always align with documentation. Security teams must verify installed versions and understand that older content databases may lack signatures for recently disclosed CVEs.
+- **Custom vulnerability signatures:** The ability to author custom signatures (Section 1.3) is essential for zero-day response and protecting against threats specific to an organization's technology stack before vendor signatures become available.
+- **Testing and validation:** Committing changes and verifying detection through threat logs (Section 1.6) follows security best practice — every policy change should be validated to confirm it behaves as intended and does not introduce gaps or false positives.
+- **Automated vs. manual updates:** Dynamic updates (Section 1.1) provide automated, scheduled protection, while manual updates (Section 1.2) give administrators control over specific content versions — balancing timeliness with stability in change-sensitive environments.
 

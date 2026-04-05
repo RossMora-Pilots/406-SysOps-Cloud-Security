@@ -2,6 +2,8 @@
 
 Skills developed in this course mapped to industry frameworks, with proficiency levels.
 
+![Skills Proficiency Radar](skills-radar.svg)
+
 ## NICE Cybersecurity Workforce Framework (NIST SP 800-181)
 
 | NICE Category | Specialty Area | Skills Demonstrated | Proficiency |
