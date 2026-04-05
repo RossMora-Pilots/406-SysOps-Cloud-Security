@@ -84,6 +84,40 @@ File blocking is MIME/type-based:
 - Allow with prompt for approved categories
 - Quarantine unknown types for WildFire analysis
 
+### Configuration Example: URL Filtering + DNS Security Policy
+
+The following PAN-OS CLI snippet shows how URL filtering, DNS security, and file blocking are combined into a single security profile group:
+
+```text
+# PAN-OS CLI — URL Filtering profile
+set profiles url-filtering "Strict-URL" action block
+set profiles url-filtering "Strict-URL" credential-enforcement domain-credential-filter block
+set profiles url-filtering "Strict-URL" block "newly-registered-domain"
+set profiles url-filtering "Strict-URL" block "phishing"
+set profiles url-filtering "Strict-URL" block "malware"
+set profiles url-filtering "Strict-URL" block "command-and-control"
+set profiles url-filtering "Strict-URL" alert "unknown"
+set profiles url-filtering "Strict-URL" log-container-page-only yes
+
+# DNS Security — enable cloud-based DNS sinkholing
+set profiles spyware "DNS-Security-Enabled" botnet-domains dns-security-categories
+set profiles spyware "DNS-Security-Enabled" botnet-domains sinkhole ipv4-address pan-sinkhole-default
+set profiles spyware "DNS-Security-Enabled" botnet-domains threat-categories malware action block
+
+# File Blocking — block dangerous download types
+set profiles file-blocking "Block-Executables" rules "Block-PE"
+set profiles file-blocking "Block-Executables" rules "Block-PE" file-type exe dll scr hta
+set profiles file-blocking "Block-Executables" rules "Block-PE" direction download
+set profiles file-blocking "Block-Executables" rules "Block-PE" action block
+
+# Combine into a security profile group
+set profile-group "Internet-Threat-Prevention" url-filtering "Strict-URL"
+set profile-group "Internet-Threat-Prevention" spyware "DNS-Security-Enabled"
+set profile-group "Internet-Threat-Prevention" file-blocking "Block-Executables"
+```
+
+> **Key point:** Layering URL filtering → DNS security → file blocking creates defense-in-depth where cheap controls (DNS sinkholing) eliminate threats before expensive controls (WildFire sandbox analysis) are needed.
+
 ### CSFv2 vs. SOFv2
 
 This week shifts from the **SOFv2** (Security Operating Fundamentals v2) lab track to the **CSFv2** (Cloud Security Fundamentals v2) track. The concepts are similar, but CSFv2 labs situate everything in cloud-deployed NGFW context.

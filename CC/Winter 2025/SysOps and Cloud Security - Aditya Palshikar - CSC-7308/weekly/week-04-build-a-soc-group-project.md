@@ -27,17 +27,17 @@
 
 ## Key Concepts
 
-### Cyber Kill Chain — Seven Stages
+### Cyber Kill Chain — Seven Stages (with MITRE ATT&CK Mapping)
 
-| # | Stage | Attacker Action | Defender Opportunity |
-|---:|---|---|---|
-| 1 | **Reconnaissance** | Info gathering | Zone protection, threat intel |
-| 2 | **Weaponization** | Couple malware + exploit | (limited visibility) |
-| 3 | **Delivery** | Transmit payload | Email gateway, URL filter, file blocking |
-| 4 | **Exploitation** | Trigger vulnerability | Endpoint protection, patch posture |
-| 5 | **Installation** | Establish persistence | FIM, process monitoring, HIDS |
-| 6 | **Command & Control** | Remote attacker comms | DNS security, egress monitoring |
-| 7 | **Actions on Objectives** | Exfiltrate / impact | DLP, anomaly detection, segmentation |
+| # | Stage | Attacker Action | MITRE ATT&CK | Defender Opportunity |
+|---:|---|---|---|---|
+| 1 | **Reconnaissance** | Info gathering | [TA0043](https://attack.mitre.org/tactics/TA0043/) — T1595 (Active Scanning), T1592 (Gather Victim Host Info) | Zone protection, threat intel |
+| 2 | **Weaponization** | Couple malware + exploit | [TA0042](https://attack.mitre.org/tactics/TA0042/) — T1587 (Develop Capabilities) | (limited visibility) |
+| 3 | **Delivery** | Transmit payload | [TA0001](https://attack.mitre.org/tactics/TA0001/) — T1566 (Phishing), T1189 (Drive-by) | Email gateway, URL filter, file blocking |
+| 4 | **Exploitation** | Trigger vulnerability | [TA0002](https://attack.mitre.org/tactics/TA0002/) — T1203 (Exploitation for Client Execution) | Endpoint protection, patch posture |
+| 5 | **Installation** | Establish persistence | [TA0003](https://attack.mitre.org/tactics/TA0003/) — T1547 (Boot/Logon Autostart), T1053 (Scheduled Task) | FIM, process monitoring, HIDS |
+| 6 | **Command & Control** | Remote attacker comms | [TA0011](https://attack.mitre.org/tactics/TA0011/) — T1071 (Application Layer Protocol), T1573 (Encrypted Channel) | DNS security, egress monitoring |
+| 7 | **Actions on Objectives** | Exfiltrate / impact | [TA0010](https://attack.mitre.org/tactics/TA0010/) — T1041 (Exfiltration Over C2), T1486 (Data Encrypted for Impact) | DLP, anomaly detection, segmentation |
 
 ### Wazuh Architecture
 

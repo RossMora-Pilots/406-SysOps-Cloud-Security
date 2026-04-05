@@ -95,6 +95,40 @@ Modern deployments start at **Baseline** and move to **Restricted** workload-by-
 
 Traditional perimeter firewalls only see north-south. **Kubernetes NetworkPolicies** or service mesh (Istio, Linkerd) are required for east-west segmentation. Without them, one compromised pod can pivot laterally.
 
+### Configuration Example: Kubernetes NetworkPolicy
+
+The following NetworkPolicy resource restricts the database pod (Namespace B) so only the API pod (Namespace A) can reach it on port 5432 — all other east-west traffic is denied:
+
+```yaml
+# k8s-networkpolicy-db-isolation.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-allow-api-only
+  namespace: namespace-b
+spec:
+  podSelector:
+    matchLabels:
+      app: database
+      tier: backend
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: namespace-a
+          podSelector:
+            matchLabels:
+              app: api
+              tier: backend
+      ports:
+        - protocol: TCP
+          port: 5432
+```
+
+> **Key point:** Without a NetworkPolicy, Kubernetes allows all pod-to-pod traffic by default. This "default allow" posture means a single compromised pod can reach every service in the cluster. NetworkPolicies enforce **least-privilege east-west segmentation** — the container-native equivalent of micro-segmentation.
+
 ```mermaid
 graph TD
     subgraph external["External Traffic"]

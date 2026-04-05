@@ -69,13 +69,13 @@ graph LR
     class d1,d3,d4,d5,d6,d7 defenseStyle
 ```
 
-1. **Reconnaissance** — information gathering about target environment
-2. **Weaponization** — coupling malware to an exploit
-3. **Delivery** — transmitting the weaponized payload
-4. **Exploitation** — triggering the vulnerability
-5. **Installation** — establishing persistence
-6. **Command & Control (C2)** — remote attacker communication
-7. **Actions on Objectives** — data exfiltration, lateral movement, impact
+1. **Reconnaissance** — information gathering about target environment — *MITRE ATT&CK: [TA0043](https://attack.mitre.org/tactics/TA0043/), T1595, T1592*
+2. **Weaponization** — coupling malware to an exploit — *MITRE ATT&CK: [TA0042](https://attack.mitre.org/tactics/TA0042/), T1587*
+3. **Delivery** — transmitting the weaponized payload — *MITRE ATT&CK: [TA0001](https://attack.mitre.org/tactics/TA0001/), T1566, T1189*
+4. **Exploitation** — triggering the vulnerability — *MITRE ATT&CK: [TA0002](https://attack.mitre.org/tactics/TA0002/), T1203*
+5. **Installation** — establishing persistence — *MITRE ATT&CK: [TA0003](https://attack.mitre.org/tactics/TA0003/), T1547, T1053*
+6. **Command & Control (C2)** — remote attacker communication — *MITRE ATT&CK: [TA0011](https://attack.mitre.org/tactics/TA0011/), T1071, T1573*
+7. **Actions on Objectives** — data exfiltration, lateral movement, impact — *MITRE ATT&CK: [TA0010](https://attack.mitre.org/tactics/TA0010/), T1041, T1486*
 
 For each stage, the analysis paired:
 
@@ -187,12 +187,12 @@ graph BT
 
 ## Evidence
 
-See [`EVIDENCE_INDEX.md`](EVIDENCE_INDEX.md) for screenshots and diagrams. Evidence gathering is in progress; expected artifacts:
+See [`EVIDENCE_INDEX.md`](EVIDENCE_INDEX.md) for screenshots and diagrams. Evidence artifacts captured:
 
-- Wazuh Manager dashboard (overview, alerts, agents)
-- Rule-triggered alert examples (SSH brute force, FIM change)
-- Active-response firewall block demonstration
-- Cyber Kill Chain stage-to-rule mapping table
+- 4 Cyber Kill Chain analysis screenshots (`wk04_cyber_kill_chain_1.png` – `wk04_cyber_kill_chain_4.png`)
+- Wazuh architecture diagrams (Mermaid, embedded above)
+- Kill Chain stage-to-rule mapping table (see Part 1 Contribution section)
+- Sanitized lab submission: [`assignments/Wk04_CyberKillChain_Part1.md`](assignments/Wk04_CyberKillChain_Part1.md)
 
 ## Reflection
 
@@ -212,4 +212,4 @@ Key takeaways:
 
 ---
 
-*Last updated: 2026-04-04.*
+*Last updated: 2026-04-05.*

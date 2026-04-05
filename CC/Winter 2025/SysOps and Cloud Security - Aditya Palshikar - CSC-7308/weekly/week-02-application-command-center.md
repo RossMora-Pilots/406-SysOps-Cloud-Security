@@ -43,6 +43,37 @@ This decomposition is useful even when evaluating competing vendors: any modern 
 
 ACC widgets respond to global filters. Setting `zone=untrust` once reshapes every widget to answer "from the untrusted side, what is happening?" This is more productive than re-filtering each log type manually.
 
+### ACC Analysis Flow
+
+```mermaid
+graph TD
+    start["Set Global Filter<br/>(zone, time range, app)"]
+    widgets["Widget Aggregates<br/>Top Apps · Top Sources ·<br/>Threat Activity · URL Categories"]
+    anomaly{"Anomaly<br/>Detected?"}
+    drilldown["Widget Drill-Down<br/>Click into specific category"]
+    rawlogs["Raw Log Pivot<br/>Precise filter on session details"]
+    investigate["Investigate<br/>Correlate across log types"]
+    normal["Continue Monitoring"]
+
+    start --> widgets --> anomaly
+    anomaly -->|Yes| drilldown --> rawlogs --> investigate
+    anomaly -->|No| normal
+
+    classDef filterStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef widgetStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef decisionStyle fill:#d69e2e,stroke:#975a16,color:#fff
+    classDef drillStyle fill:#ed8936,stroke:#c05621,color:#fff
+    classDef logStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff
+    classDef okStyle fill:#718096,stroke:#4a5568,color:#fff
+
+    class start filterStyle
+    class widgets widgetStyle
+    class anomaly decisionStyle
+    class drilldown drillStyle
+    class rawlogs,investigate logStyle
+    class normal okStyle
+```
+
 ## Lab Deliverable
 
 Two deliverables this week:

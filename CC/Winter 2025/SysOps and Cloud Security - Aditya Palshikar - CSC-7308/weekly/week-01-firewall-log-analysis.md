@@ -47,6 +47,33 @@ Effective log analysis is **question-driven, not log-driven**. A good analyst as
 
 Every traffic log entry has a source zone and destination zone. Understanding your **zone architecture** (trust, untrust, dmz, vpn) is prerequisite to interpreting logs. An `action=allow` log from `untrust → trust` is far more interesting than the same log from `trust → untrust`.
 
+### Log Analysis Workflow
+
+```mermaid
+graph LR
+    raw["Raw Logs<br/>(Traffic · Threat · URL · System)"]
+    question["Analyst Question<br/>'Did anyone reach a bad domain?'"]
+    filter["Filter Expression<br/>(action eq block) and<br/>(severity eq high)"]
+    results["Filtered Results<br/>Narrowed Log View"]
+    triage["Triage<br/>Severity · Context · Zone"]
+    action["Action<br/>Escalate · Block · Tune"]
+
+    question --> filter --> raw
+    raw --> results --> triage --> action
+
+    classDef logStyle fill:#718096,stroke:#4a5568,color:#fff
+    classDef analystStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef filterStyle fill:#ed8936,stroke:#c05621,color:#fff
+    classDef resultStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef actionStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff
+
+    class raw logStyle
+    class question,triage analystStyle
+    class filter filterStyle
+    class results resultStyle
+    class action actionStyle
+```
+
 ## Lab Deliverable
 
 - Report submitted as DOCX — includes screenshots of filtered log queries, observations about detected traffic patterns, and analysis of identified threats.

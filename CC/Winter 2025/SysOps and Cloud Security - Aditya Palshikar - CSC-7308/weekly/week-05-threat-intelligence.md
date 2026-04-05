@@ -53,6 +53,39 @@ Traditional security is **reactive**: wait for an alert, then respond. Threat-in
 
 WildFire receives unknown-verdict samples from Palo Alto firewalls globally, analyzes them in sandboxes, and publishes verdicts back. A sample that was benign an hour ago can become known-malicious now — your firewall sees the new verdict and blocks future instances.
 
+### Threat Intelligence Feedback Loop
+
+```mermaid
+graph LR
+    fw["NGFW<br/>(Your Firewall)"]
+    wildfire["WildFire<br/>Sandbox Analysis"]
+    autofocus["AutoFocus<br/>Threat Intelligence"]
+    signatures["Signature &<br/>Blocklist Update"]
+    global["Global Telemetry<br/>(All Palo Alto Customers)"]
+
+    fw -->|"Unknown sample<br/>submitted"| wildfire
+    wildfire -->|"Verdict:<br/>malicious/benign"| autofocus
+    autofocus -->|"IoC tags,<br/>campaign context"| signatures
+    signatures -->|"Updated policy<br/>pushed to NGFW"| fw
+
+    global -->|"Cross-customer<br/>correlation"| autofocus
+    fw -->|"Telemetry<br/>contributes"| global
+
+    classDef fwStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef wfStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff
+    classDef afStyle fill:#d69e2e,stroke:#975a16,color:#fff
+    classDef sigStyle fill:#48bb78,stroke:#276749,color:#fff
+    classDef globalStyle fill:#9f7aea,stroke:#6b46c1,color:#fff
+
+    class fw fwStyle
+    class wildfire wfStyle
+    class autofocus afStyle
+    class signatures sigStyle
+    class global globalStyle
+```
+
+This feedback loop is the key insight: threat intelligence is **not** a one-directional data feed — every participating firewall's observations strengthen the collective defense of all participants.
+
 ## Lab Deliverable
 
 - Report submitted as DOCX — includes screenshots of AutoFocus tag views, IoC detail pages, and how indicators were pulled into firewall policy or external blocklists.
@@ -64,6 +97,26 @@ WildFire receives unknown-verdict samples from Palo Alto firewalls globally, ana
 3. Correlated AutoFocus indicators with NGFW threat prevention logs
 4. Examined WildFire verdict delivery pipeline — sample submission, analysis, signature publication
 5. Documented how threat intelligence feeds integrate into NGFW blocklists for automated prevention
+
+### Configuration Example: External Dynamic List (EDL)
+
+An EDL pulls threat intelligence indicators into the NGFW for automated blocking. The following PAN-OS CLI snippet configures an EDL from an external blocklist feed:
+
+```text
+# PAN-OS CLI — Configure External Dynamic List for automated blocking
+set external-list name "ThreatIntel-IP-Blocklist" type ip
+set external-list name "ThreatIntel-IP-Blocklist" url "https://feeds.example.com/blocklist-ips.txt"
+set external-list name "ThreatIntel-IP-Blocklist" recurring five-minute
+set external-list name "ThreatIntel-IP-Blocklist" description "AutoFocus-correlated malicious IP blocklist"
+
+# Reference the EDL in a security policy rule
+set rulebase security rules "Block-ThreatIntel" from untrust to any
+set rulebase security rules "Block-ThreatIntel" source "ThreatIntel-IP-Blocklist"
+set rulebase security rules "Block-ThreatIntel" action deny
+set rulebase security rules "Block-ThreatIntel" log-end yes
+```
+
+> **Key point:** EDLs close the loop between threat intelligence analysis (AutoFocus/WildFire) and automated enforcement (NGFW policy). The five-minute refresh interval ensures newly identified IoCs are blocked without manual intervention.
 
 ## Reflection
 

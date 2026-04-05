@@ -106,7 +106,7 @@ By the end of this course, a student should be able to:
 ## Course Artifacts
 
 - **9 video lectures** (~15 hours of instruction; excluded from repo, stored locally)
-- **4 lecture transcripts** (Weeks 2, 3, 5, 6, 7 — referenced in weekly summaries)
+- **5 lecture transcripts** (Weeks 2, 3, 5, 6, 7 — referenced in weekly summaries)
 - **8 hands-on labs** — SOFv2 (6 labs) + CSFv2 (2 labs)
 - **1 group project** (Build a SOC with Wazuh)
 - **Original work** — Rust async ping-sweep CLI tool ([`scripts/ping_sweep/`](scripts/ping_sweep/))
