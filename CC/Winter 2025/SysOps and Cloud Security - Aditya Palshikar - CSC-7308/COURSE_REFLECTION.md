@@ -107,8 +107,7 @@ See [`scripts/ping_sweep/`](scripts/ping_sweep/) for the code, flow diagram, and
 
 ## Honest Limitations of This Snapshot
 
-- **Weeks 10–12 not delivered** at snapshot (2026-04-04). Final assessment pending.
-- **Screenshots pending** — lab evidence captured in DOCX submissions has not yet been extracted and indexed to `screenshots/`.
+- **Weeks 10–12 not delivered** at portfolio snapshot date. Final assessment pending.
 - **Team deliverables incomplete** — the Build a SOC group project has Part 1 submitted; full team report still in progress.
 - **Video lectures excluded** — ~1.5 GB of MP4 files are stored locally, not in repository.
 

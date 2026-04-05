@@ -207,8 +207,8 @@ Key takeaways:
 ## Status
 
 - ✅ Part 1 (Cyber Kill Chain mapping) submitted
+- ✅ Lab screenshots extracted and indexed in [`EVIDENCE_INDEX.md`](EVIDENCE_INDEX.md)
 - 🟡 Team deliverables in progress at portfolio snapshot
-- 🟡 Evidence gathering ongoing (screenshots pending)
 
 ---
 

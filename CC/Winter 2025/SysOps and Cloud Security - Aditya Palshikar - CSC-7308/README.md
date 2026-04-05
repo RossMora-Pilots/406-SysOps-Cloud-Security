@@ -101,7 +101,7 @@ By the end of this course, a student should be able to:
 |---|---|---|
 | Weekly Labs (8 individual) | Graded | Delivered |
 | Group Project: Build a SOC | Capstone | Delivered (Part 1) |
-| Final Exam / Project | TBD | Weeks 10–12 |
+| Final Exam / Project | Pending | Weeks 10–12 (not yet delivered) |
 
 ## Course Artifacts
 

@@ -92,4 +92,4 @@ The tool connects Week 2's material directly:
 
 ## License
 
-© Ross Moravec. Released under the repository [MIT License](../../../../LICENSE).
+© Ross Moravec. Released under the repository [MIT License](../../../../../LICENSE).
