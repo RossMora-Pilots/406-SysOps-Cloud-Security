@@ -18,10 +18,15 @@ This pilot creates a public, employer-facing course portfolio repository for **S
 
 ## Next
 
-- [ ] Capture and add week-by-week screenshots (wkNN_topic_N.png)
-- [ ] Sanitize and add PDF versions of student submissions to `assignments/`
-- [ ] Add skills matrix (`docs/skills-matrix.md`) with NICE/CyBOK alignment
-- [ ] Populate `docs/references.md` with external reading
+- [x] Capture and add week-by-week screenshots (wkNN_topic_N.png) — 44 screenshots
+- [x] Sanitize and add PDF versions of student submissions to `assignments/`
+- [x] Add skills matrix (`docs/skills-matrix.md`) with NICE/CyBOK alignment
+- [x] Populate `docs/references.md` with external reading
+- [x] Enrich all 8 assignment files with executive summaries, analysis sections, and descriptive alt text
+- [x] Add Mermaid diagrams to all 9 weekly summaries (14 diagrams total)
+- [x] Add MITRE ATT&CK technique IDs to Kill Chain mappings
+- [x] Add config examples (EDL, URL/DNS/file-blocking, K8s NetworkPolicy)
+- [x] Generate skills radar SVG chart (`docs/skills-radar.svg`)
 - [ ] Run PM plumbing to generate `artifacts/roadmap.json`
 - [ ] Push to GitHub; set repo topics and description
 
@@ -29,8 +34,12 @@ This pilot creates a public, employer-facing course portfolio repository for **S
 
 - [ ] Optional GitHub Pages landing page with interactive weekly navigation
 - [ ] Architecture diagrams for the Build a SOC project (Wazuh deployment)
-- [ ] Learning reflection video or screencast
+- [ ] Learning reflection video or screencast (3-minute narrated lab walkthrough)
 - [ ] Cross-link with Pilots 008 and 010 in a program-level landing page
+- [ ] Live Wazuh detection demo (working rule triggered in sandbox)
+- [ ] Blog post adaptation from a weekly reflection
+- [ ] Rust ping sweep unit tests for subnet arithmetic
+- [ ] Service mesh (Istio/Linkerd) appendix for Week 9
 
 ## Milestones (Definition of Done)
 
@@ -41,8 +50,12 @@ This pilot creates a public, employer-facing course portfolio repository for **S
 - [x] Build a SOC group project has a full writeup
 - [x] Original code work (Rust ping sweep) preserved with documentation
 - [x] No PII of other students or secrets in repository
-- [ ] Evidence artifacts present (roadmap.json, state.json, sessions index)
-- [ ] Screenshots captured and indexed
+- [x] Evidence artifacts present (roadmap.json, state.json, sessions index)
+- [x] Screenshots captured and indexed (44 PNGs, 31.6 MB)
+- [x] All 8 assignments enriched to professional lab report quality
+- [x] Mermaid diagrams in all 9 weekly summaries (14 total)
+- [x] Skills radar SVG generated and linked
+- [x] Independent employer audit completed, all gaps remediated (grade: A)
 - [ ] Repo published to GitHub with topics and description
 
 ## Runbook

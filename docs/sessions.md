@@ -2,6 +2,34 @@
 
 Records of portfolio development sessions for continuity.
 
+## 2026-04-05 — Employer Audit & Full Remediation (Round 2)
+
+**Scope:** Independent employer-perspective re-audit of entire portfolio + systematic remediation of all 19 identified gaps.
+
+**Key Deliverables:**
+- `docs/EMPLOYER_AUDIT_2026-04-05.md` — 571-line independent audit with Section 12 remediation tracking
+- `docs/SESSION_2026-04-05_AUDIT_REMEDIATION.md` — comprehensive session documentation
+- 8 assignment files enriched from raw DOCX exports to professional lab reports
+- 3 new Mermaid diagrams (Weeks 1, 2, 5) — now 14 diagrams across 9/9 weeks
+- MITRE ATT&CK technique IDs added to Week 4 + midterm Kill Chain
+- 3 config examples added (EDL, URL/DNS/file-blocking, K8s NetworkPolicy)
+- `docs/skills-radar.svg` + `scripts/gen_radar.py` — skills proficiency radar chart
+- Stale text fixes (midterm evidence, transcript count)
+
+**Commits:** `54d4a92`..`082d8e6` (4 commits, +1192/−216 lines, 20 files)
+
+**Final Grade:** A (up from A−)
+
+**Deferred Items:**
+- Push to GitHub (repo is on NAS, not GitHub)
+- GitHub Pages landing page
+- Video walkthrough of a lab exercise
+- Live Wazuh detection demo
+- Blog post adaptation
+- Rust ping sweep unit tests
+
+---
+
 ## 2025-04-05 — Portfolio Audit & Full Remediation
 
 **Scope:** Employer-perspective audit of entire portfolio, followed by systematic remediation of all identified gaps.
