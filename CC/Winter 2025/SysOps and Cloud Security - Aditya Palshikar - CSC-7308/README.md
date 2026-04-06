@@ -27,7 +27,7 @@
 
 - **Weekly Summaries** → [`weekly/`](weekly/) — Individual week write-ups (Week 1 – Week 9)
 - **Build a SOC (Group Project)** → [`MIDTERM_PROJECT_SUMMARY.md`](MIDTERM_PROJECT_SUMMARY.md)
-- **Final Vulnerability Assessment** → [`FINAL_EXAM_VULNERABILITY_ASSESSMENT.md`](FINAL_EXAM_VULNERABILITY_ASSESSMENT.md)
+- **Final Assessment Preparation** → [`FINAL_ASSESSMENT_PREPARATION.md`](FINAL_ASSESSMENT_PREPARATION.md)
 - **Course Reflection** → [`COURSE_REFLECTION.md`](COURSE_REFLECTION.md)
 - **Scripts & Code** → [`SCRIPTS_README.md`](SCRIPTS_README.md)
 - **Evidence Index** → [`EVIDENCE_INDEX.md`](EVIDENCE_INDEX.md)

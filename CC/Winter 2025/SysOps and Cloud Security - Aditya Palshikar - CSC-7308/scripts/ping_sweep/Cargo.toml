@@ -1,7 +1,14 @@
 [package]
 name = "ping_sweep"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
+authors = ["Ross Moravec"]
+description = "Async ICMP ping sweep CLI tool — scans subnets for live hosts using Tokio"
+license = "MIT"
+repository = "https://github.com/rossmoravec/406-SysOps-Cloud-Security"
+readme = "README.md"
+keywords = ["ping", "network", "security", "async", "tokio"]
+categories = ["command-line-utilities", "network-programming"]
 
 [dependencies]
 pinger = "1"

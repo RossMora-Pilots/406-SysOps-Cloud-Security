@@ -23,7 +23,7 @@ This pilot creates a public, employer-facing course portfolio repository for **S
 - [x] Add skills matrix (`docs/skills-matrix.md`) with NICE/CyBOK alignment
 - [x] Populate `docs/references.md` with external reading
 - [x] Enrich all 8 assignment files with executive summaries, analysis sections, and descriptive alt text
-- [x] Add Mermaid diagrams to all 9 weekly summaries (14 diagrams total)
+- [x] Add Mermaid diagrams to all 9 weekly summaries (15 diagrams total)
 - [x] Add MITRE ATT&CK technique IDs to Kill Chain mappings
 - [x] Add config examples (EDL, URL/DNS/file-blocking, K8s NetworkPolicy)
 - [x] Generate skills radar SVG chart (`docs/skills-radar.svg`)
@@ -53,7 +53,7 @@ This pilot creates a public, employer-facing course portfolio repository for **S
 - [x] Evidence artifacts present (roadmap.json, state.json, sessions index)
 - [x] Screenshots captured and indexed (44 PNGs, 31.6 MB)
 - [x] All 8 assignments enriched to professional lab report quality
-- [x] Mermaid diagrams in all 9 weekly summaries (14 total)
+- [x] Mermaid diagrams in all 9 weekly summaries (15 total)
 - [x] Skills radar SVG generated and linked
 - [x] Independent employer audit completed, all gaps remediated (grade: A)
 - [ ] Repo published to GitHub with topics and description

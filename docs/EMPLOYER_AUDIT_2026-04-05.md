@@ -553,7 +553,7 @@ Everything else is polish. As-is, this portfolio would result in a technical int
 The assignment enrichment (item #1) was the single highest-impact change — transforming 8 files from raw DOCX exports (C+ quality) to professional lab reports with executive summaries, descriptive alt text, code blocks, and security analysis sections. This eliminates the portfolio's only critical quality asymmetry.
 
 Additional improvements:
-- **Mermaid diagrams:** 9/9 weekly summaries now have at least one diagram (was 6/9)
+- **Mermaid diagrams:** 9/9 weekly summaries now have at least one diagram (was 6/9). Total: 15 diagrams across 9 weeks.
 - **Config examples:** 3 new real-world config snippets (EDL, URL/DNS/file-blocking, K8s NetworkPolicy)
 - **MITRE ATT&CK:** Kill Chain tables now include specific tactic and technique IDs with hyperlinks
 - **Skills radar:** New SVG visualization provides at-a-glance proficiency overview

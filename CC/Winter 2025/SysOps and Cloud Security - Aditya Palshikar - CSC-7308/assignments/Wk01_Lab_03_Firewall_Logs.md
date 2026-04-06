@@ -10,6 +10,18 @@ This lab introduced PAN-OS firewall log analysis on a Palo Alto Networks next-ge
 
 ---
 
+## Methodology
+
+| Element | Detail |
+|---|---|
+| **Lab environment** | Palo Alto Networks SOFv2 (Security Operations Fundamentals v2) |
+| **Platform** | PAN-OS next-generation firewall (virtual lab instance) |
+| **Tools** | PAN-OS web interface, Linux CLI (`timedatectl`), traffic log viewer |
+| **Approach** | Load a named firewall configuration, verify system clock via NTP, then inspect individual traffic log entries to extract session metadata fields |
+| **Scope** | Three tasks: configuration load verification, time synchronization check, and traffic log field extraction (session ID, NAT IP, URL category) |
+
+---
+
 ## 1.0 — Load Named Configuration
 
 **Objective:** In the Task Manager > All Tasks window, verify that the configuration load has successfully completed.
@@ -61,4 +73,26 @@ Firewall log analysis is one of the most frequent tasks performed by SOC analyst
 3. **Log field interpretation** — Extracting session IDs, NAT translations, and URL categories from traffic logs enables analysts to reconstruct user activity, identify policy violations, and feed indicators into threat-hunting workflows.
 
 Together, these skills establish the operational baseline required for more advanced PAN-OS monitoring tasks covered in subsequent labs.
+
+## Findings
+
+| # | Task | Result | Significance |
+|---|---|---|---|
+| 1 | Load named configuration | ✅ Completed — Task Manager confirmed success | Verified firewall operating with expected policy set |
+| 2 | System time (NTP) | ✅ Synchronized — `timedatectl` confirmed NTP active | Prerequisite for accurate cross-device log correlation |
+| 3 | Session ID extraction | **419** — unique traffic flow identifier | Enables cross-log correlation (traffic, threat, URL) |
+| 4 | Destination NAT IP | **91.189.91.48** — post-NAT public IP | Reveals actual destination reached by internal host |
+| 5 | URL category | **computer-and-internet-info** — PAN-DB classification | Used by security policy for category-based filtering |
+
+## Conclusions
+
+1. **Firewall log analysis is foundational** — every SOC analyst role requires the ability to inspect traffic logs, extract session metadata, and correlate entries across log types.
+2. **Time synchronization is non-negotiable** — NTP alignment ensures that log timestamps are consistent across firewalls, endpoints, and SIEMs; even seconds of drift can invalidate forensic timelines.
+3. **Structured field extraction enables automation** — session IDs, NAT translations, and URL categories are the building blocks for automated alert enrichment and SIEM correlation rules.
+
+## Recommendations
+
+1. **Integrate with SIEM** — Forward PAN-OS traffic logs to Wazuh or Splunk for centralized correlation and alerting on anomalous session patterns.
+2. **Schedule NTP audits** — Implement periodic NTP drift checks across all log-producing infrastructure to prevent timestamp misalignment.
+3. **Create log query templates** — Build saved filters for common triage patterns (e.g., "all sessions to a specific NAT IP" or "all traffic in a URL category") to accelerate analyst workflows.
 

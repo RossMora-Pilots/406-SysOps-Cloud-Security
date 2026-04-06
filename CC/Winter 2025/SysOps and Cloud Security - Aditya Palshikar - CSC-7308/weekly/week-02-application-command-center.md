@@ -43,6 +43,23 @@ This decomposition is useful even when evaluating competing vendors: any modern 
 
 ACC widgets respond to global filters. Setting `zone=untrust` once reshapes every widget to answer "from the untrusted side, what is happening?" This is more productive than re-filtering each log type manually.
 
+Example ACC global filter configuration:
+
+```text
+Time Range:  Last 1 Hour
+Zone:        untrust
+Application: Any
+Action:      Any
+```
+
+When a threat like Bredolab.Gen C2 appears, the ACC triage path is:
+
+```text
+ACC Dashboard → Threat Activity widget (high-severity entries)
+  → Click Bredolab.Gen C2 → Filtered threat view
+    → Click individual entry → Full log detail (src IP, dst IP, action, signature)
+```
+
 ### ACC Analysis Flow
 
 ```mermaid

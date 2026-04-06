@@ -1,6 +1,6 @@
-# Final Assessment — Vulnerability Assessment & Incident Response
+# Final Assessment Preparation — Vulnerability Assessment & Incident Response
 
-> **Note:** Weeks 10–12 had not been delivered at the portfolio snapshot date. This document will be fully populated once the final assessment is completed.
+> **Note:** Weeks 10–12 had not been delivered at the portfolio snapshot date. This document captures the preparation framework and skills foundation built across Weeks 1–9. It will be fully populated once the final assessment is completed.
 
 ## Anticipated Scope
 

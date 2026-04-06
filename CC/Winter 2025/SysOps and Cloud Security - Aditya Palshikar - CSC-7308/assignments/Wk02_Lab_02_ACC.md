@@ -10,6 +10,18 @@ This lab explored the Application Command Center (ACC) — PAN-OS's primary anal
 
 ---
 
+## Methodology
+
+| Element | Detail |
+|---|---|
+| **Lab environment** | Palo Alto Networks SOFv2 (Security Operations Fundamentals v2) |
+| **Platform** | PAN-OS next-generation firewall with Application Command Center |
+| **Tools** | PAN-OS ACC dashboard, malware traffic generation script, threat log viewer |
+| **Approach** | Load lab config → generate simulated C2 traffic → use ACC widgets to identify and investigate the Bredolab.Gen threat → drill down from summary to individual log entry |
+| **Scope** | Configuration load, simulated traffic generation, ACC threat detection and triage workflow |
+
+---
+
 ## 1.0 — Load Named Configuration
 
 **Objective:** In the Load Named Configuration window, select `pan-sof-lab-02.xml` from the Name dropdown and click OK.
@@ -64,3 +76,24 @@ The Application Command Center is a force-multiplier for SOC operations on Palo 
 4. **Simulated traffic for training** — Using controlled traffic-generation scripts allows analysts to practice detection and triage without live threats, building muscle memory for real incident response.
 
 These ACC skills directly support the threat-monitoring and incident-triage competencies required for SOC analyst roles.
+
+## Findings
+
+| # | Task | Result | Significance |
+|---|---|---|---|
+| 1 | Load lab configuration | ✅ `pan-sof-lab-02.xml` loaded successfully | Correct policies and logging profiles active |
+| 2 | Malware traffic generation | ✅ C2 patterns injected via lab script | Realistic threat data populated in ACC widgets |
+| 3 | ACC threat identification | **Bredolab.Gen C2 Traffic** detected, ranked high severity | ACC surfaced the threat without manual log queries |
+| 4 | Drill-down investigation | Source IP, destination IP, application, action, and signature confirmed | Full alert context available in ≤3 clicks |
+
+## Conclusions
+
+1. **The ACC is a force multiplier** — it consolidates threat, application, and traffic data into a single dashboard, enabling analysts to identify the highest-priority threats in seconds rather than minutes.
+2. **C2 detection is the highest SOC priority** — Bredolab.Gen C2 traffic indicates an active compromise with ongoing attacker control; rapid identification of C2 is critical for containment.
+3. **Drill-down workflow mirrors real SOC triage** — the ACC's widget → filtered view → log entry path trains the same investigative reflex analysts use in production incidents.
+
+## Recommendations
+
+1. **Create saved ACC views** — Define dashboard presets for common triage scenarios (e.g., "C2 activity last 24h", "top blocked applications") to accelerate daily monitoring.
+2. **Define escalation SOPs** — Establish standard operating procedures for when ACC threat widgets show C2 detections: who to notify, what to isolate, which logs to preserve.
+3. **Correlate ACC with SIEM** — Feed ACC-identified indicators into Wazuh/Splunk for cross-platform correlation and automated incident ticket creation.

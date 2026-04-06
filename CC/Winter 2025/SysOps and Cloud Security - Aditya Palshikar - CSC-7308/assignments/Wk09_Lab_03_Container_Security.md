@@ -10,6 +10,18 @@ This lab explores **container networking and security** using Docker. The exerci
 
 ---
 
+## Methodology
+
+| Element | Detail |
+|---|---|
+| **Lab environment** | Palo Alto Networks CSFv2 with Docker runtime on lab VM |
+| **Platform** | Docker Engine on Linux (lab virtual machine) |
+| **Tools** | Docker CLI (`docker images`, `docker run`, `docker inspect`, `docker ps`), `ping`, web browser |
+| **Approach** | Pull Ubuntu image → run container → inspect network config (bridge IP: `172.16.3.2`) → test inter-container ping → deploy nginx with `-p 8080:80` → verify web access from host |
+| **Scope** | Container image management, network inspection, inter-container connectivity, host-port mapping, service verification |
+
+---
+
 ## 1.2 Pull a Container Image and Run a Docker Container
 
 **Objective:** Pull an Ubuntu image from Docker Hub, launch a container, inspect its network details, and verify inter-container connectivity.
@@ -70,3 +82,26 @@ This lab explores **container networking and security** using Docker. The exerci
 | **Image Supply Chain** | Pulling images from Docker Hub introduces supply-chain risk; production environments should use signed images from trusted registries with vulnerability scanning enabled. |
 
 Understanding container networking is foundational to securing cloud-native workloads. The isolation provided by Docker's bridge network is a starting point, but production deployments require additional controls — network policies, service meshes, and runtime monitoring — to enforce segmentation and detect lateral movement between containers.
+
+## Findings
+
+| # | Task | Result | Significance |
+|---|---|---|---|
+| 1 | Image pull | ✅ Ubuntu image pulled from Docker Hub | Image available locally for container creation |
+| 2 | Container network inspection | Bridge IP: **`172.16.3.2`** (private, isolated) | Container receives internal IP, not exposed externally |
+| 3 | Inter-container connectivity | ✅ Ping successful between containers | Default bridge allows container-to-container communication |
+| 4 | Host-port mapping | nginx on **`-p 8080:80`** | Service published to host network — explicit attack surface |
+| 5 | Web access verification | ✅ nginx default page at `http://192.168.50.10:8080` | End-to-end proof of service exposure from container to host network |
+
+## Conclusions
+
+1. **Default isolation is only a starting point** — Docker's bridge network provides private IPs, but default settings allow unrestricted container-to-container communication within the same bridge.
+2. **Port mapping creates explicit attack surface** — each `-p` flag publishes a service to the host network; every mapped port must be accounted for in firewall rules and vulnerability scans.
+3. **Container inspection is essential for security auditing** — `docker inspect` reveals runtime configuration (mounts, environment variables, network settings) critical for incident response and compliance checks.
+
+## Recommendations
+
+1. **Implement network policies** — use Docker network segmentation or Kubernetes NetworkPolicies to restrict inter-container communication to only required paths.
+2. **Scan container images** — integrate vulnerability scanning (e.g., Trivy, Snyk) into the image pull pipeline; only deploy images from trusted, signed registries.
+3. **Minimize port mappings** — follow least-privilege networking: only expose ports that are explicitly required, and bind to specific interfaces rather than `0.0.0.0`.
+4. **Add runtime monitoring** — deploy container runtime security tools (e.g., Falco, Sysdig) to detect anomalous behavior such as unexpected network connections or file modifications.

@@ -22,6 +22,8 @@
 - 📂 Program: Postgraduate Cybersecurity Certificate (Fall 2024 – Winter 2025)
 - 🛡️ Focus: SysOps, cloud security, detection engineering, threat intelligence
 - 💻 Independent work: Rust async network tooling, CI/CD automation, documentation-as-code
+- 🔗 GitHub: [github.com/rossmoravec](https://github.com/rossmoravec)
+- 💼 LinkedIn: [linkedin.com/in/rossmoravec](https://linkedin.com/in/rossmoravec)
 
 ---
 
@@ -178,7 +180,7 @@ Full weekly detail: [`CC/.../weekly/`](CC/Winter%202025/SysOps%20and%20Cloud%20S
 │       └── SysOps and Cloud Security - Aditya Palshikar - CSC-7308/
 │           ├── README.md              Course overview + navigation
 │           ├── MIDTERM_PROJECT_SUMMARY.md       Build a SOC (group project)
-│           ├── FINAL_EXAM_VULNERABILITY_ASSESSMENT.md
+│           ├── FINAL_ASSESSMENT_PREPARATION.md
 │           ├── EVIDENCE_INDEX.md      Screenshots, diagrams, artifacts
 │           ├── SCRIPTS_README.md      Script usage and documentation
 │           ├── COURSE_REFLECTION.md   Learning reflection + takeaways

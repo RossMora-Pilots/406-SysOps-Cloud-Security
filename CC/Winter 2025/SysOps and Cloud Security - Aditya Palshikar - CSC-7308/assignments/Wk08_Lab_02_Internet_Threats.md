@@ -10,6 +10,18 @@ This lab demonstrates how to prevent internet-borne threats using **file blockin
 
 ---
 
+## Methodology
+
+| Element | Detail |
+|---|---|
+| **Lab environment** | Palo Alto Networks CSFv2 (Cloud Security Fundamentals v2) |
+| **Platform** | PAN-OS next-generation firewall — file blocking features |
+| **Tools** | PAN-OS file blocking profile editor, security policy configuration, web browser (test downloads), threat log viewer |
+| **Approach** | Create a file blocking profile targeting dangerous MIME types → bind the profile to an existing security policy rule → attempt to download blocked file types → verify enforcement via block page and threat log entry |
+| **Scope** | File blocking profile creation, policy binding, enforcement validation with live download test |
+
+---
+
 ## 1.2 Apply the File Blocking Profile to a Security Policy
 
 **Objective:** Attach the newly created file blocking profile to an existing security policy rule so that traffic matching the rule is inspected for blocked file types.
@@ -44,4 +56,25 @@ This lab demonstrates how to prevent internet-borne threats using **file blockin
 | **Verification** | Testing with an actual download attempt confirms that the data plane is enforcing the profile, not just the management plane configuration. |
 
 File blocking profiles reduce the attack surface by preventing users from inadvertently downloading executable content. Combined with WildFire (which analyzes unknown files in a sandbox), this creates a layered inspection pipeline where known-bad files are blocked immediately and unknown files are held for analysis.
+
+## Findings
+
+| # | Task | Result | Significance |
+|---|---|---|---|
+| 1 | File blocking profile creation | ✅ Profile configured for `.exe`, `.scr`, `.hta` | Targets the most common malware delivery file types |
+| 2 | Security policy binding | ✅ Profile attached to existing policy rule | Enforcement active for matching traffic |
+| 3 | Download test | ✅ Download blocked — firewall block page displayed | Confirms data-plane enforcement, not just config-plane |
+| 4 | Threat log verification | ✅ File blocking action logged with file type and action | Audit trail for compliance and incident investigation |
+
+## Conclusions
+
+1. **File blocking is an essential defense layer** — it sits between URL filtering (pre-connection) and WildFire sandboxing (post-download), catching known-dangerous file types inline.
+2. **Policy binding is a critical operational step** — a profile definition has no effect until attached to a security policy rule; this separation enables modular, auditable policy management.
+3. **Live testing validates enforcement** — confirming blocking with an actual download attempt proves the data-plane is enforcing the profile, not just the management-plane configuration.
+
+## Recommendations
+
+1. **Expand blocked file types** — include additional risky formats (`.dll`, `.bat`, `.ps1`, `.vbs`, `.jar`) based on current threat landscape analysis.
+2. **Integrate with WildFire** — combine file blocking with WildFire forwarding so that file types not explicitly blocked are submitted for sandbox analysis.
+3. **Monitor for bypass attempts** — review threat logs for patterns indicating users or attackers attempting to circumvent file blocking (e.g., renamed extensions, encrypted archives).
 

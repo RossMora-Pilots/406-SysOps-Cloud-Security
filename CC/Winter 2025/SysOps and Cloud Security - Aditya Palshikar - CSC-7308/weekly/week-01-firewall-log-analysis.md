@@ -43,6 +43,14 @@ Each PAN-OS log type answers a different question:
 
 Effective log analysis is **question-driven, not log-driven**. A good analyst asks "did any user try to reach a known-bad domain in the last 24 hours?" and expresses it as a filter — they do not scroll through raw logs.
 
+Example PAN-OS log filter expressions:
+
+```text
+( action eq block ) and ( severity eq high )
+( addr.dst in 91.189.91.48 ) and ( type eq traffic )
+( zone.src eq untrust ) and ( zone.dst eq trust ) and ( action eq allow )
+```
+
 ### Zone-to-Zone Traffic Context
 
 Every traffic log entry has a source zone and destination zone. Understanding your **zone architecture** (trust, untrust, dmz, vpn) is prerequisite to interpreting logs. An `action=allow` log from `untrust → trust` is far more interesting than the same log from `trust → untrust`.

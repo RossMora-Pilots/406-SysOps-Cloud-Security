@@ -10,6 +10,18 @@ This lab deployed MineMeld, Palo Alto Networks' open-source threat intelligence 
 
 ---
 
+## Methodology
+
+| Element | Detail |
+|---|---|
+| **Lab environment** | Palo Alto Networks SOFv2 with Docker host |
+| **Platform** | PAN-OS NGFW + MineMeld (Docker containers) |
+| **Tools** | Docker, docker-compose, MineMeld web interface, PAN-OS EDL configuration |
+| **Approach** | Deploy MineMeld via Docker → configure threat intelligence feeds → create high-confidence and bad-IP output nodes → integrate as EDLs in PAN-OS security policy → verify indicator population |
+| **Scope** | End-to-end threat intelligence pipeline: feed ingestion → indicator processing → firewall policy enforcement |
+
+---
+
 ## 1.1 — Deploy MineMeld via Docker (Step 4)
 
 Listing created Docker volumes to verify MineMeld's persistent storage was provisioned correctly:
@@ -53,4 +65,26 @@ Viewing the block list indicators populated in the External Dynamic List (EDL) t
 - **Docker-based deployment:** Containerizing MineMeld isolates the threat intelligence processing engine, simplifies updates, and ensures reproducible deployments via `docker-compose.yml`.
 - **External Dynamic Lists (EDLs):** EDLs are a key PAN-OS feature that allows security policy to reference dynamically updated indicator lists without requiring manual commits for each new threat — essential for keeping pace with evolving threat landscapes.
 - **Operational consideration:** Feed quality and update frequency directly impact the effectiveness of automated blocking. Stale or low-quality feeds can introduce false positives that disrupt legitimate traffic.
+
+## Findings
+
+| # | Task | Result | Significance |
+|---|---|---|---|
+| 1 | MineMeld Docker deployment | ✅ Volumes provisioned, containers running | Isolated TI processing engine with persistent storage |
+| 2 | docker-compose configuration | ✅ Service definition, ports, volumes verified | Reproducible deployment via infrastructure-as-code |
+| 3 | High-confidence EDL integration | ✅ Indicators populated in PAN-OS EDL | Automated blocking of high-confidence malicious IPs |
+| 4 | Bad IP list EDL integration | ✅ Second EDL source added and populated | Broader coverage from multiple threat feeds |
+| 5 | Block list verification | ✅ Indicators visible in EDL panel | Confirmed end-to-end pipeline from feed to enforcement |
+
+## Conclusions
+
+1. **Automated threat intelligence reduces response time** — the MineMeld → EDL pipeline eliminates manual indicator management, cutting the time from threat discovery to firewall enforcement from hours to minutes.
+2. **Layered feed strategy improves coverage** — using both high-confidence (low false-positive) and broader bad-IP feeds balances precision with coverage.
+3. **Docker simplifies TI infrastructure** — containerized deployment isolates the threat intelligence engine, simplifies updates, and ensures reproducibility.
+
+## Recommendations
+
+1. **Monitor feed freshness** — implement automated checks to alert when feed update timestamps exceed expected intervals (stale feeds create blind spots).
+2. **Add STIX/TAXII feeds** — expand beyond the default MineMeld sources to include industry-specific threat intelligence sharing communities.
+3. **Establish feed quality metrics** — track false-positive rates per feed source and adjust confidence thresholds to minimize impact on legitimate traffic.
 

@@ -75,6 +75,39 @@ My own Rust ping-sweep tool is exactly the kind of traffic Zone Protection is tu
 2. Be added to the block-IP list after N hosts
 3. Lose visibility into subsequent target responses
 
+### Reconnaissance Detection Flow
+
+```mermaid
+graph TD
+    attacker["Attacker<br/>(nmap / ping sweep)"]
+    traffic["Scan Traffic<br/>(many destinations,<br/>few packets each)"]
+    zone["Zone Protection Profile<br/>(recon thresholds)"]
+    decision{Threshold<br/>exceeded?}
+    alert["Threat Log Entry<br/>(recon signature)"]
+    block["Block Source IP<br/>(duration: 300 s)"]
+    allow["Allow<br/>(below threshold)"]
+
+    attacker --> traffic --> zone --> decision
+    decision -->|Yes| alert --> block
+    decision -->|No| allow
+
+    classDef attackerStyle fill:#e53e3e,stroke:#9b2c2c,color:#fff
+    classDef trafficStyle fill:#ed8936,stroke:#c05621,color:#fff
+    classDef zoneStyle fill:#4a90d9,stroke:#2c5282,color:#fff
+    classDef decisionStyle fill:#d69e2e,stroke:#975a16,color:#fff
+    classDef alertStyle fill:#805ad5,stroke:#553c9a,color:#fff
+    classDef blockStyle fill:#9b2c2c,stroke:#742a2a,color:#fff
+    classDef allowStyle fill:#38a169,stroke:#276749,color:#fff
+
+    class attacker attackerStyle
+    class traffic trafficStyle
+    class zone zoneStyle
+    class decision decisionStyle
+    class alert alertStyle
+    class block blockStyle
+    class allow allowStyle
+```
+
 ## Lab Deliverable
 
 - Report submitted as DOCX — includes screenshots of Zone Protection profile configuration, DoS policy, and threat log entries showing detected reconnaissance activity.

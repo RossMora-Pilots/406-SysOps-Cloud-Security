@@ -1,153 +1,148 @@
-# Detailed Code Interpretation - Ping Sweep Program
+# Detailed Code Interpretation — Async Ping Sweep (v0.2)
 
 ## 1. Dependencies and Imports
 ```rust
 use pinger::{PingResult, ping};
+use std::fmt;
+use std::net::Ipv4Addr;
 use std::sync::mpsc;
 use tokio::task;
-use std::io::{self, Write};
-use std::net::Ipv4Addr;
 ```
-- `pinger`: External crate for handling ICMP ping operations
+- `pinger`: External crate for ICMP ping operations
+- `fmt`: Display trait implementation for custom error type
 - `mpsc`: Multi-producer, single-consumer channel for thread communication
-- `tokio`: Asynchronous runtime for handling concurrent operations
-- `std::io`: Standard I/O operations for user input
-- `std::net`: Network-related functionality, specifically IPv4 address handling
+- `tokio`: Asynchronous runtime for concurrent task execution
+- `Ipv4Addr`: Standard library type for IPv4 address handling and conversion
 
-## 2. Main Function Structure
+## 2. Custom Error Type
+```rust
+#[derive(Debug)]
+enum SweepError {
+    InvalidIp(String),
+    InvalidMask(String),
+    IoError(std::io::Error),
+}
+```
+- Replaces raw `.unwrap()` calls with typed error variants
+- `InvalidIp` — captures the offending input string for diagnostic messages
+- `InvalidMask` — handles out-of-range (>32) and non-numeric CIDR values
+- `IoError` — wraps standard I/O failures (stdin/stdout)
+- Implements `Display` for user-friendly error messages and `From<std::io::Error>` for `?` operator support
+
+## 3. IP and Mask Parsing
+```rust
+fn parse_ip(ip: &str) -> Result<u32, SweepError> {
+    let addr: Ipv4Addr = ip.parse()
+        .map_err(|_| SweepError::InvalidIp(ip.to_string()))?;
+    Ok(u32::from(addr))
+}
+
+fn parse_mask(mask: &str) -> Result<u8, SweepError> {
+    let m: u8 = mask.parse()
+        .map_err(|_| SweepError::InvalidMask(mask.to_string()))?;
+    if m > 32 {
+        return Err(SweepError::InvalidMask(format!("/{m} is out of range 0–32")));
+    }
+    Ok(m)
+}
+```
+- **`parse_ip`** converts a dotted-quad string to a `u32` via the standard `Ipv4Addr` type — no manual octet splitting needed
+- **`parse_mask`** validates the CIDR prefix is in range \[0, 32\] — rejects "33", "-1", "abc" with clear messages
+- Both return `Result` types — errors propagate via `?` instead of panicking
+
+## 4. Subnet Range Calculation (Bitwise)
+```rust
+fn subnet_range(ip: u32, prefix: u8) -> (u32, u32) {
+    if prefix == 32 { return (ip, 1); }
+    let host_bits = 32 - prefix as u32;
+    let mask = !((1u32 << host_bits) - 1);
+    let network = ip & mask;
+    if prefix >= 31 {
+        return (network, 1u32 << host_bits);
+    }
+    let total = (1u32 << host_bits) - 2;
+    (network, total)
+}
+```
+This is the **critical fix** from v0.1. The original code used integer division (`host_bits / 8`) to decide how many octets to overwrite — this failed for any prefix not on an 8-bit boundary (e.g., /25, /26, /30).
+
+**How the bitwise approach works:**
+1. Compute the network mask by inverting the lower `host_bits` bits: `/25` → `0xFFFFFF80`
+2. AND with the input IP to get the network address: `10.0.0.200 & 0xFFFFFF80` = `10.0.0.128`
+3. Subtract 2 from total addresses (network + broadcast) to get usable hosts: `/25` → 128 − 2 = **126**
+4. Special cases: `/32` (single host), `/31` (point-to-point — RFC 3021, no broadcast)
+
+**Verification for tricky subnets:**
+| Prefix | Host bits | Total addresses | Usable hosts |
+|--------|-----------|-----------------|--------------|
+| /24    | 8         | 256             | 254          |
+| /25    | 7         | 128             | 126          |
+| /26    | 6         | 64              | 62           |
+| /30    | 2         | 4               | 2            |
+| /31    | 1         | 2               | 2 (RFC 3021) |
+| /32    | 0         | 1               | 1            |
+
+## 5. Main Application Structure
 ```rust
 #[tokio::main]
 async fn main() {
-```
-- `#[tokio::main]`: Macro that sets up the async runtime
-- `async`: Indicates this function can perform asynchronous operations
-
-## 3. User Input Handling
-```rust
-print!("Enter base IP (e.g., 192.168.1.0): ");
-io::stdout().flush().unwrap();
-let mut base_ip = String::new();
-io::stdin().read_line(&mut base_ip).unwrap();
-let base_ip = base_ip.trim();
-```
-- Prompts user for base IP address
-- `flush()`: Ensures prompt is displayed immediately
-- `read_line()`: Captures user input
-- `trim()`: Removes whitespace and newline characters
-
-## 4. Subnet Input and Processing
-```rust
-print!("Enter subnet mask (e.g., 24 for /24): ");
-io::stdout().flush().unwrap();
-let mut subnet_mask = String::new();
-io::stdin().read_line(&mut subnet_mask).unwrap();
-let subnet_mask: u8 = subnet_mask.trim().parse().unwrap();
-```
-- Captures subnet mask in CIDR notation
-- Converts string input to 8-bit unsigned integer
-- Example: "24" means first 24 bits are network portion
-
-## 5. IP Address Parsing
-```rust
-let ip_parts: Vec<u8> = base_ip
-    .split('.')
-    .map(|part| part.parse().unwrap())
-    .collect();
-```
-- Splits IP address string at dots
-- Converts each octet to u8 (0-255)
-- Creates vector of bytes representing IP address
-
-## 6. Network Range Calculation
-```rust
-let num_hosts = 2u32.pow((32 - subnet_mask) as u32) - 1;
-```
-- Calculates number of possible hosts in subnet
-- Formula: 2^(32 - subnet_mask) - 1
-- Example: /24 subnet = 2^(32-24) - 1 = 254 hosts
-
-## 7. Main Scanning Loop
-```rust
-for i in 1..=num_hosts {
-    let mut ip_addr = ip_parts.clone();
-    let host_part = i.to_be_bytes();
-    
-    let host_bits = 32 - subnet_mask;
-    for j in 0..(host_bits as usize / 8) {
-        ip_addr[4 - j - 1] = host_part[4 - j - 1];
+    if let Err(e) = run().await {
+        eprintln!("Error: {e}");
+        std::process::exit(1);
     }
-```
-- Iterates through all possible host addresses
-- Clones base IP for each iteration
-- Converts host number to bytes
-- Calculates host portion of address
-- Updates appropriate octets of IP address
-
-## 8. Ping Function Implementation
-```rust
-async fn ping_host(ip: String) -> bool {
-    let result = task::spawn_blocking(move || {
-        let (tx, rx) = mpsc::channel();
-```
-- Asynchronous function to ping single host
-- Creates blocking task for ping operation
-- Sets up channel for result communication
-
-## 9. Ping Execution and Result Handling
-```rust
-std::thread::spawn(move || {
-    match ping(ip.parse().unwrap(), None) {
-        Ok(receiver) => {
-            for msg in receiver {
-                match msg {
-                    PingResult::Pong(..) => {
-                        tx.send(true).expect("Failed to send ping result");
-                        return;
-                    }
-                    _ => continue,
-                }
-            }
-```
-- Spawns new thread for ping operation
-- Executes ping command
-- Processes ping responses
-- Sends success/failure through channel
-
-## 10. Error Handling and Results
-```rust
-if ping_result {
-    println!("\nHost {} is up.", ip);
-} else {
-    println!("Host {} is unreachable.", ip);
 }
 ```
-- Processes ping results
-- Displays status for each host
-- Handles both successful and failed pings
+- `#[tokio::main]` sets up the async runtime
+- `main()` delegates to `run()` which returns `Result<(), SweepError>`
+- Errors are printed to stderr with a non-zero exit code — no panics reach the user
 
-## Key Technical Concepts:
+## 6. Scanning Loop
+```rust
+for i in 1..=num_hosts {
+    let host_ip = ip_from_u32(network + i);
+    ...
+}
+```
+- `network + 1` is the first usable host; `network + num_hosts` is the last
+- Avoids network address (`.0` equivalent) and broadcast address (`.255` equivalent)
+- `ip_from_u32` converts back to `Ipv4Addr` for display and ping
 
-1. **Asynchronous Programming**
-   - Uses Tokio for async operations
-   - Handles multiple pings concurrently
-   - Non-blocking I/O operations
+## 7. Ping Function
+```rust
+async fn ping_host(ip: String) -> bool {
+    task::spawn_blocking(move || {
+        let (tx, rx) = mpsc::channel();
+        std::thread::spawn(move || {
+            let addr: Ipv4Addr = match ip.parse() { ... };
+            match ping(std::net::IpAddr::V4(addr), None) {
+                Ok(receiver) => { ... }
+                Err(_) => { tx.send(false).ok(); }
+            }
+        });
+        rx.recv_timeout(Duration::from_secs(2)).unwrap_or(false)
+    }).await.unwrap_or(false)
+}
+```
+- `spawn_blocking` moves the synchronous ping into Tokio's blocking thread pool
+- Inner `std::thread::spawn` + channel pattern isolates the pinger library's blocking I/O
+- 2-second timeout prevents hanging on unreachable hosts
+- All error paths return `false` (unreachable) — no panics
 
-2. **Thread Safety**
-   - Uses channels for thread communication
-   - Safe data sharing between threads
-   - Proper error handling
+## 8. Test Suite
+The `#[cfg(test)]` module contains **22 unit tests** covering:
+- **`parse_ip`** — valid IPs, loopback, invalid octets, garbage input, empty string
+- **`parse_mask`** — valid boundaries (0, 24, 32), out-of-range (33), non-numeric
+- **`subnet_range`** — correctness for /8, /16, /24, /25, /26, /30, /31, /32; verifies non-zero host input gets masked to correct network
+- **`ip_from_u32`** — roundtrip conversion
+- **Host iteration** — verifies first and last host addresses for /24, /25, /26
 
-3. **Network Programming**
-   - IP address manipulation
-   - Subnet calculations
-   - ICMP ping implementations
+Run with `cargo test --verbose`.
 
-4. **Memory Safety**
-   - Proper ownership management
-   - Safe thread boundaries
-   - Error handling with Results
+## Key Technical Concepts
 
-5. **Performance Considerations**
-   - Concurrent ping operations
-   - Efficient memory usage
-   - Thread pool management
+1. **Error Handling** — Custom `SweepError` enum with `Display` and `From` implementations; `?` operator propagation; no `.unwrap()` on user input
+2. **Bitwise Subnet Arithmetic** — Proper network mask computation, host range calculation, and special-case handling for /31 and /32
+3. **Asynchronous Programming** — Tokio runtime, `spawn_blocking` for CPU/IO-bound work, channel-based result collection
+4. **Thread Safety** — `move` closures transfer ownership across thread boundaries; MPSC channels for safe cross-thread communication
+5. **Network Programming** — `u32` ↔ `Ipv4Addr` conversion, CIDR prefix handling, ICMP ping via external crate
+6. **Testing** — 22 unit tests, boundary conditions, error cases, roundtrip verification

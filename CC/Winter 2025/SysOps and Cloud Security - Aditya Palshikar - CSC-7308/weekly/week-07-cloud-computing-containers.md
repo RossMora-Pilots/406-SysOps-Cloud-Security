@@ -107,6 +107,18 @@ The identity plane for Azure, Office 365, and third-party apps. Critical concept
 - **Conditional Access** — contextual policy enforcement (location, device, risk)
 - **Managed identities** — service-to-service auth without credentials
 
+### Cloud-Native vs. On-Prem Security Equivalents
+
+```text
+On-Prem Control            →  Cloud-Native Equivalent
+─────────────────────────────────────────────────────
+Palo Alto NGFW             →  AWS Security Groups / Azure NSGs / GCP Firewall Rules
+Physical access control    →  IAM policies + Conditional Access
+VLAN segmentation          →  VPC subnets + network ACLs
+Hardware load balancer     →  ALB/NLB (AWS), Azure LB, GCP LB
+On-prem SIEM (Wazuh)      →  Azure Sentinel, AWS Security Hub, Chronicle
+```
+
 ## Lab / Deliverable
 
 No formal lab this week. Lecture was conceptual groundwork for Weeks 8–9's hands-on container security work.
