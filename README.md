@@ -13,6 +13,9 @@
 
 > Public, employer-facing course portfolio for **SysOps and Cloud Security (CSC-7308)**, a Winter 2025 course in the Cambrian College Postgraduate Cybersecurity Certificate program (Sudbury, Ontario). Instructor: **Aditya Palshikar**.
 
+
+> ✅ **Course complete (Winter 2025).** All assigned coursework delivered; this portfolio is the final published state.
+
 ---
 
 ## About the Author
